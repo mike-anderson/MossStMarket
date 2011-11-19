@@ -1,0 +1,4 @@
+#This is an ignore file, git will not sync anything defined in this file
+
+.DS_Store
+*.swp
