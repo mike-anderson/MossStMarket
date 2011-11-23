@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>Moss Street Market: Vendors</title>
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+				<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Copse" type="text/css">
+		<link rel="stylesheet" media="all" href="@{'/public/stylesheets/style.css'}"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+	
+		$('#overview td').on("click",
+			function() {
+				$(this).children('.tooltip').addClass('clicked');
+			}
+		);
+
+		$(".close").on("click", function (e) {
+			e.stopPropagation();
+			$(this).parent(".tooltip").removeClass("clicked");
+		});
+
+	});
+
+</script>
+
+
+		</head>
+		
+		
+	
+<body lang="en">
+<header>
+	<h1>Moss Street Market</h1>
+
+	<nav><ul>
+		<li><a href="index">Overview</a></li>
+		<li><a href="vendors" id="active">Vendors</a></li>
+		<li><a href="bookings">Bookings</a></li>
+		<li><a href="finance">Finance</a></li>
+	</ul></nav>
+</header>
+<div id="main" class="overhidden">
+<a href="" class="button">Add New Vendor</a>
+<div id="sidebar">
+<form action="/search" method="get" id="search">
+			<input type="text" name="q" class="search-box" value=""/>
+			<input type="image" src="@{'/public/images/search.png'}" class="search-input" value="Search"/>
+		</form>
+<ul>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Appleseed</a></li>
+<li><a href="">John Lennon</a></li>
+<li><a href="">Johnny Walker</a></li>
+</ul>
+</div>
+<div id="vendor">
+<hgroup>
+	<h2>John Appleseed</h2>
+	<a href="" class="button">Edit</a>
+</hgroup>
+<p>
+221B Baker St<br />
+Victoria BC<br />
+V8P 4Y0</p>
+<p>
+(250) 123-4567</p>
+<h3>Current Balance</h3>
+<table>
+    <thead>
+    	<tr>
+        	<th scope="col">Qty</th>
+        	<th scope="col">Type</th>
+            <th scope="col" class="thin">Subtotal (CAD)</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<tr>
+         	<td>2</td>
+			<td>Produce ($150)</td>
+            <td>$300</td>
+        </tr>
+        <tr>
+         	<td>1</td>
+        	<td>Produce ($150)</td>
+            <td>$150</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Booking History</h3>
+<table>
+    <thead>
+    	<tr>
+        	<th scope="col">Date</th>
+        	<th scope="col" class="thin">Stall</th>
+            <th scope="col">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<tr>
+         	<td>November 5 &ndash; 12</td>
+			<td>1</td>
+            <td>Produce</td>
+        </tr>
+    	<tr>
+         	<td>October 29</td>
+			<td>10</td>
+            <td>Produce</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+<footer>
+	<a href="http://www.wonderbolts.info"><img src="@{'/public/images/wb.png'}" alt="Wonderbolts Development" /></a>
+</footer>
+	</body>
+	
+</html>

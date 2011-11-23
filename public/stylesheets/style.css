@@ -1,0 +1,703 @@
+/*	Less Framework 4
+	http://lessframework.com
+	by Joni Korpi
+	License: http://opensource.org/licenses/mit-license.php	*/
+
+
+/*	Resets
+	------	*/
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, 
+p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, 
+img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, hr, 
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, 
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figure, figcaption, hgroup, 
+menu, footer, header, nav, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+article, aside, canvas, figure, figure img, figcaption, hgroup,
+footer, header, nav, section, audio, video {
+	display: block;
+}
+
+a img {border: 0;}
+
+img {
+	max-width: 100%;
+	height: auto;
+	width: auto\9; /* ie8 */
+}
+
+
+/*	Typography presets
+	------------------	*/
+
+.gigantic {
+	font-size: 110px;
+	line-height: 120px;
+	letter-spacing: -2px;
+}
+
+.huge, h1 {
+	font-size: 42px;
+	line-height: 48px;
+	letter-spacing: -1px;
+}
+
+.bigger, h2 {
+	font-size: 26px;
+	line-height: 36px;
+}
+
+.big, h3 {
+	font-size: 22px;
+	line-height: 30px;
+}
+
+body {
+	font: 16px/24px Georgia, serif;
+}
+
+.small, small {
+	font-size: 13px;
+	line-height: 18px;
+}
+
+/* tables */
+
+table
+{
+	background: #fff;
+	width: 70%;
+	border-collapse: collapse;
+	text-align: left;
+}
+table th
+{
+	color: #1E1E1E;
+	padding: 10px 8px;
+	border-bottom: 2px solid #8c8f69;
+}
+tbody td
+{
+	color: #666;
+	padding: 9px 8px 0px 8px;
+}
+table tbody tr:hover td
+{
+	color: #aab25d;
+}
+.thin {
+	width: 30%;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+/* Selection colours (easy to forget) */
+
+::selection 	 	{background: rgb(255,255,158);}
+::-moz-selection 	{background: rgb(255,255,158);}
+img::selection 		{background: transparent;}
+img::-moz-selection	{background: transparent;}
+body {-webkit-tap-highlight-color: rgb(255,255,158);}
+
+
+
+/*		Default Layout: 992px. 
+		Gutters: 24px.
+		Outer margins: 48px.
+		Leftover space for scrollbars @1024px: 32px.
+-------------------------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8      9      10
+px      68    160    252    344    436    528    620    712    804    896    */
+
+body {
+	margin: 0 auto;
+	width: 896px;
+	padding: 24px 48px;
+	background: #fbf6d2;
+	color: rgb(30,30,30);
+	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
+}
+h1, h2, h3, #legend {
+	font-family: 'Copse', Georgia, serif;
+}
+hr {
+	border-bottom: 1px dashed rgb(60,60,60);
+	margin: 5px 0;
+}
+header {
+	position: relative;
+	background: url('../images/logo.png') no-repeat left top;
+	padding-left: 135px;
+	min-height: 80px;
+}
+header h1 {
+	position: absolute;
+	bottom: 4px;
+}
+a, #overview td span.tooltip a {
+	display: inline;
+	color: #8c8f69;
+	text-decoration: none;
+	border-bottom: 1px dotted #8c8f69;
+}
+a:hover {
+	color: #aab25d;
+}
+nav {
+	position: absolute;
+	right: 0;
+	bottom: 4px;
+}
+nav li {
+	list-style-type: none;
+	display: inline;
+	margin-right: 10px;	
+}
+nav li:last-child {
+	margin-right: 0;
+}
+nav li a {
+	position: relative;
+	text-decoration: none;
+	padding: 7px;
+	border: none;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-top-left-radius: 10px;
+	-moz-border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background-color: #cccca3;
+	color: #fefefe;
+	
+}
+nav li a#active {
+	background-color: #fefefe;
+	color: #cccca3;
+}
+nav li a:hover {
+	color: #fefefe;
+	bottom: 5px;
+	padding-bottom: 12px;
+}
+#main {
+	background: #fefefe;
+	padding: 10px 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-top-right-radius: 0;
+	border-top-right-radius: 0;
+	position: relative;
+}
+.button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	border: 0;
+	background-color: #8c8f69;
+	color: #fff;
+	margin-left: 10px;
+	padding: 10px;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;	
+}
+.button:hover {
+	color: #fff;
+}
+hgroup {
+	padding: 10px;
+}
+hgroup h2, hgroup h3 {
+	display: inline;
+}
+hgroup select {
+	margin-left: 10px;
+	font-size: 22px;
+	padding: 3px;
+}
+footer {
+	padding: 10px;
+	font-size: 13px;
+	line-height: 50px;
+	text-align: right;
+}
+footer a {
+	border: none;
+}
+/*-----
+PAGE SPECIFIC STUFF
+------*/
+#sidebar {
+	display: table-cell;
+	border: 0;
+	background-color: #8c8f69;
+	color: #fff;
+	float: left;
+	width: 200px;
+	margin-right: 12px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;	
+}
+#sidebar ul {
+	padding: 15px;
+}
+#sidebar li {
+	list-style-type: none;
+	border-bottom: 1px dotted #fff;
+}
+#sidebar li a {
+	color: #fff;
+	border: none;
+	display: block;
+	padding: 3px 5px;
+}
+#sidebar li:hover {
+	background: rgba(255, 255, 255, .1);
+}
+#sidebar li:last-child {
+	list-style-type: none;
+	border-bottom: none;
+}
+.search-box {
+	margin: 15px 0 0 15px;
+	border: none;
+}
+#vendor {
+	float: left;
+	width: 614px;
+}
+#vendor .button {
+	position: static;
+}
+.overhidden {
+	overflow: hidden;
+}
+
+#overview {
+	width: auto;
+	background-color: #dfbc9c;
+	border-collapse:separate;
+	border-spacing: 15px;
+	margin: 0 auto;
+	padding: -15px;
+}
+#overview td {
+	width: 70px;
+	height: 74px;
+	border: 2px dashed #c0dcdd;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	background-color: #fff;
+	vertical-align: top;
+	color: #c0dcdd;
+	cursor: pointer;
+	padding: 0;
+}
+#overview td.road {
+	height: 50px;
+	width: 40px;
+	border: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	background: #e9e0e5;
+	cursor: auto;
+}
+#overview td.active {
+	border-style: solid;
+	border-color: #fff !important;
+	background-color: #c0dcdd;
+}
+#overview td.produce {
+	border-color: #caa3c2;
+	color: #caa3c2;
+}
+#overview td.maintenance {
+	border-style: solid;
+	border-color: #fff;
+	background: #fcbe2f url('../images/maintenance.png') center center no-repeat;
+	color: #fff;
+}
+#overview td.produce.active, div.produce {
+	background-color: #caa3c2 !important;
+}
+#overview td span.number {
+	margin-bottom: -10px;
+	font: 22px/24px 'Copse', Georgia, serif;
+	position: relative;
+	top: -5px;
+	left: 0px;
+}
+#overview td.active span.number {
+	color: #fff !important;
+}
+#overview a {
+	display: block;
+	border: none;
+	text-decoration: none;
+}
+#overview td span.name {
+	font-size: 13px;
+	padding: 0 5px;
+	line-height: 18px;
+	display: block;
+	width: 60px;
+	text-overflow: ellipsis;
+    overflow:hidden;
+	text-align: center;
+	color: rgb(60,60,60);
+	text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+}
+#legend {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin: 20px 0;
+	padding: 15px;
+	background-color: #eee;
+}
+#legend h3 {
+	display: inline;
+}
+#legend span {
+	padding-left: 10px;
+	white-space:nowrap;
+}
+#legend span div {
+	display: inline-block;
+	margin-bottom: -5px;
+	margin-right: 7px;
+	width: 25px;
+	height: 25px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	background-color: #c0dcdd;
+}
+td > .tooltip {
+	opacity: 0;
+	margin-top: -10px;
+	visibility: hidden;
+	margin-left: -65px;
+
+}
+td.bottom > .tooltip {
+	margin-top: -300px;
+}
+
+	td > .tooltip.clicked {
+		opacity: 1;
+		visibility: visible;
+		overflow: visible;
+		margin-top: 30px;
+		display: inline;
+		margin-left: -40px;
+	
+	}
+	td.bottom > .tooltip.clicked {
+		margin-top: -350px;
+	}
+.tooltip {
+	background: #FFFBCF;
+	background: -moz-linear-gradient(top, #FFFBCF 0%, #FFFCDF 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFBCF), color-stop(100%,#FFFCDF));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFBCF', endColorstr='#FFFCDF',GradientType=0 );
+
+	border: 1px solid #EFE795;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+
+	min-width: 190px;
+	padding: 10px;
+	margin-left: -40px;
+
+	position: absolute;
+
+	font-size: 12px;
+	color: #777;
+	text-shadow: 1px 1px 0 rgba(255,255,255,0.75);
+	
+	cursor: auto;
+	
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 #fff;
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 #fff;	
+	-o-box-shadow: 0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 #fff;	
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 #fff;
+
+	z-index: 10;	
+}
+.tooltip select {
+	display: block;
+}
+	.bottom .tooltip {
+	background: -moz-linear-gradient(top, #FFFBCF 100%, #FFFCDF 0%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(100%,#FFFBCF), color-stop(0%,#FFFCDF));
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFBCF', endColorstr='#FFFCDF',GradientType=0 );
+	position: absolute;
+}
+
+
+		.tooltip img.close {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			cursor: pointer;
+		}
+		.tooltip span { /* Triangle */
+			background: #FFFBCF;
+
+			border: 0;
+			border-top: 1px solid #EFE795;
+			border-right: 1px solid #EFE795;	
+
+			width: 10px;
+			height: 10px;
+			margin-left: 15px;
+			margin-top: -16px;
+			
+			display: block;
+			position: absolute;
+
+			-webkit-transform: rotate(-45deg);
+			-moz-transform: rotate(-45deg);
+			-o-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+			
+			-webkit-box-shadow: inset -1px 1px 0 #fff;
+			-moz-box-shadow: inset 0 1px 0 #fff;
+			-o-box-shadow: inset 0 1px 0 #fff;
+			box-shadow: inset 0 1px 0 #fff;
+			
+			display /*\**/: none\9;
+			*display: none !important;
+			*display: none;
+		}
+		
+		.bottom .tooltip span { /* Triangle */
+			bottom: -6px;
+
+			-webkit-transform: rotate(-225deg);
+			-moz-transform: rotate(-225deg);
+			-o-transform: rotate(-225deg);
+			transform: rotate(-225deg);
+		}
+	
+/*		Tablet Layout: 768px.
+		Gutters: 24px.
+		Outer margins: 28px.
+		Inherits styles from: Default Layout.
+-----------------------------------------------------------------
+cols    1     2      3      4      5      6      7      8
+px      68    160    252    344    436    528    620    712    */
+
+@media only screen and (max-width: 990px) {
+	
+	body {
+		width: 712px;
+		padding: 0 28px 60px;
+	}
+	header {
+		padding: 70px 0 0 0;
+		background-position: center top;
+		height: auto;
+	}
+	header h1 {
+		position: static;
+		display: block;
+		text-align: center;		
+	}	
+	nav {
+		right: auto;
+		width: 100%;
+		text-align: center;
+	}
+	#main {
+		-moz-border-top-right-radius: 10px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+	}
+	table {
+		width: 80%;
+	}
+	#vendor {
+		float: left;
+		width: 430px;
+	}
+	#overview td, #overview td span.name {
+		width: 40px;
+	}
+	td.bottom > .tooltip {
+		margin-top: -330px;
+	}
+	td.bottom > .tooltip.clicked {
+		margin-top: -380px;
+	}
+}
+
+
+
+/*		Wide Mobile Layout: 480px.
+		Gutters: 24px.
+		Outer margins: 22px.
+		Inherits styles from: Default Layout, Mobile Layout.
+------------------------------------------------------------
+cols    1     2      3      4      5
+px      68    160    252    344    436    */
+
+@media only screen and (max-width: 767px) {
+
+	
+	body {
+		width: 436px;
+		padding: 0 22px 48px;
+
+		}
+	table {
+		width: 100%;
+	}
+	.button {
+		position: static;
+		display: block;
+		text-align: center;
+		margin: 10px;
+	}
+	#sidebar {
+		width: 100%;
+	}
+	#vendor {
+	width: 100%;
+	}
+	#overview {
+		display: block;
+	}
+	#overview tr {
+		display: block;
+		width: 100%;
+	}
+	#overview td {
+		display: block;
+		margin: 0 0 10px 0;
+		width: 354px;
+	}
+	#overview td span.name {
+		width: 100%;
+	}
+
+	#overview td.road {
+		display: none;
+	}
+	#overview td span.number {
+		font-size: 26px;
+		line-height: 36px;
+	}
+	#overview td span.name {
+		font-size: 18px;
+		line-height: 24px;
+	}
+	td.bottom > .tooltip {
+		margin-top: -10px;
+	}
+	td.bottom > .tooltip.clicked {
+		margin-top: 30px;
+	}
+	.bottom .tooltip span { /* Triangle */
+		bottom: auto;
+
+		-webkit-transform: rotate(-45deg);
+		-moz-transform: rotate(-45deg);
+		-o-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+	}
+}
+
+
+
+/*		Mobile Layout: 320px.
+		Gutters: 24px.
+		Outer margins: 34px.
+		Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3
+px      68    160    252    */
+
+@media only screen and (max-width: 479px) {
+	
+	body {
+		width: 252px;
+		padding: 0 34px 60px;
+	}
+	header {
+		min-height: 120px;
+	}
+	nav li {
+		margin-right: 3px;
+	}
+	nav li a {
+		padding: 6px 3px 8px;
+		font-size: 12px;
+		line-height: 18px;
+	}
+	#overview td {
+		display: block;
+		margin: 0 0 10px 0;
+		width: 168px;
+	}
+	#overview td span.name {
+		font-size: 16px;
+		line-height: 24px;
+	}
+}
+
+@media only screen and (min-width: 769px) {
+	td > .tooltip {
+	-webkit-transition-property:opacity, margin-top, visibility, margin-left;
+	-webkit-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	-webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+	
+	-moz-transition-property:opacity, margin-top, visibility, margin-left;
+	-moz-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	-moz-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+	
+	-o-transition-property:opacity, margin-top, visibility, margin-left;
+	-o-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	-o-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+	
+	transition-property:opacity, margin-top, visibility, margin-left;
+	transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in;
+	}
+
+	td > .tooltip.clicked {
+		
+		-webkit-transition-property:opacity, margin-top, visibility, margin-left;
+		-webkit-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+		-webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+		
+		-moz-transition-property:opacity, margin-top, visibility, margin-left;
+		-moz-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+		-moz-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;		
+		
+		-o-transition-property:opacity, margin-top, margin-left;
+		-o-transition-duration:0.5s, 0.3s, 0.3s;  
+		-o-transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
+		
+		transition-property:opacity, margin-top, visibility, margin-left;
+		transition-duration:0.5s, 0.3s, 0.5s;  
+		transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;	
+	}
+}

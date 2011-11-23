@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>Moss Street Market: Finances</title>
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+				<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Copse" type="text/css">
+		<link rel="stylesheet" media="all" href="@{'/public/stylesheets/style.css'}"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+	
+		$('#overview td').on("click",
+			function() {
+				$(this).children('.tooltip').addClass('clicked');
+			}
+		);
+
+		$(".close").on("click", function (e) {
+			e.stopPropagation();
+			$(this).parent(".tooltip").removeClass("clicked");
+		});
+
+	});
+
+</script>
+
+
+		</head>
+		
+		
+	
+<body lang="en">
+<header>
+	<h1>Moss Street Market</h1>
+
+	<nav><ul>
+		<li><a href="index">Overview</a></li>
+		<li><a href="vendors">Vendors</a></li>
+		<li><a href="bookings">Bookings</a></li>
+		<li><a href="finance" id="active">Finance</a></li>
+	</ul></nav>
+</header>
+<div id="main">
+<hgroup>
+	<h2>Finances for</h2>
+	<select>
+		<option value="November 5">November 5</option>
+		<option value="November 12">November 12</option>
+	</select>
+</hgroup>
+	<h3>Unpaid Invoices</h3>
+<table summary="Unpaid Invoices">
+    <thead>
+    	<tr>
+        	<th scope="col">Vendor</th>
+            <th scope="col" class="thin">Amount (CAD)</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<tr>
+        	<td>Stephen C. Cox</td>
+            <td>$300</td>
+        </tr>
+        <tr>
+        	<td>Josephin Tan</td>
+            <td>$150</td>
+        </tr>
+        <tr>
+        	<td>Joyce Ming</td>
+            <td>$200</td>
+        </tr>
+        <tr>
+        	<td>James A. Pentel</td>
+            <td>$175</td>
+        </tr>
+    </tbody>
+</table>
+	<h3>Paid Invoices</h3>
+<table summary="paid Invoices">
+    <thead>
+    	<tr>
+        	<th scope="col">Vendor</th>
+            <th scope="col" class="thin">Amount (CAD)</th>
+        </tr>
+    </thead>
+    <tbody>
+    	<tr>
+        	<td>Stephen C. Cox</td>
+            <td>$300</td>
+        </tr>
+        <tr>
+        	<td>Josephin Tan</td>
+            <td>$150</td>
+        </tr>
+        <tr>
+        	<td>Joyce Ming</td>
+            <td>$200</td>
+        </tr>
+        <tr>
+        	<td>James A. Pentel</td>
+            <td>$175</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<footer>
+	<a href="http://www.wonderbolts.info"><img src="@{'/public/images/wb.png'}" alt="Wonderbolts Development" /></a>
+</footer>
+	</body>
+	
+</html>
