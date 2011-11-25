@@ -1,37 +1,7 @@
-<!doctype html>
-<html>
-
-	<head>
-		<meta charset="utf-8"/>
-		<title>Moss Street Market: Overview</title>
-		<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-				<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-		<![endif]-->
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Copse" type="text/css">
-		<link rel="stylesheet" media="all" href="@{'/public/stylesheets/style.css'}"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
-
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-		<script type="text/javascript" src="@{'/public/javascripts/wonderbolts.js'}"></script>
-
-		</head>
+#{extends 'main.html' /}
+#{set title:'Bookings' /}
+#{set overhidden:true /}
 		
-		
-	
-<body lang="en">
-<header>
-	<h1>Moss Street Market</h1>
-
-	<nav><ul>
-		<li><a href="index">Overview</a></li>
-		<li><a href="vendors">Vendors</a></li>
-		<li><a href="bookings" id="active">Bookings</a></li>
-		<li><a href="finance">Finance</a></li>
-	</ul></nav>
-</header>
-<div id="main" class="overhidden">
 <h2>Book Stall #1 (Produce)</h2>
 <a href="" class="button topright">Book Stall</a></p>
 
@@ -102,10 +72,3 @@
     <h2>Error</h2>
     <p>Feature has yet to be implemented</p>
 </div>
-</div>
-<footer>
-	<a href="http://www.wonderbolts.info"><img src="@{'/public/images/wb.png'}" alt="Wonderbolts Development" /></a>
-</footer>
-	</body>
-	
-</html>

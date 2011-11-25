@@ -2,16 +2,43 @@
 
 <html>
     <head>
-        <title>#{get 'title' /}</title>
+        <title>Moss Street Market: #{get 'title' /}</title>
         <meta charset="${_response_encoding}">
-        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/style.css'}">
-        #{get 'moreStyles' /}
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Copse" type="text/css">
+		<link rel="stylesheet" media="all" href="@{'/public/stylesheets/style.css'}"/>
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+       #{get 'moreStyles' /}
+
+
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 		
 		<script type="text/javascript" src="@{'/public/javascripts/wonderbolts.js'}"></script>
         #{get 'moreScripts' /}
     </head>
-    <body>
-        #{doLayout /}
-    </body>
+    <body lang="en">
+		<header>
+			<h1>Moss Street Market</h1>
+
+			<nav><ul>
+				<li><a href="index" #{if title=='Overview'}id="active"#{/if}>Overview</a></li>
+				<li><a href="vendors" #{if title=='Vendors'}id="active"#{/if}>Vendors</a></li>
+				<li><a href="bookings" #{if title=='Bookings'}id="active"#{/if}>Bookings</a></li>
+				<li><a href="finance" #{if title=='Finance'}id="active"#{/if}>Finance</a></li>
+			</ul></nav>
+		</header>
+		<div id="main" #{if overhidden}class="overhidden"#{/if}>
+			#{doLayout /}
+		</div>
+		<footer>
+			<a href="http://www.wonderbolts.info"><img src="@{'/public/images/wb.png'}" alt="Wonderbolts Development" /></a>
+		</footer>
+	</body>
+	
 </html>

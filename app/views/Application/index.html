@@ -1,46 +1,12 @@
-<!doctype html>
-<html>
+#{extends 'main.html' /}
+#{set title:'Overview' /}
 
-	<head>
-		<meta charset="utf-8"/>
-		<title>Moss Street Market: Overview</title>
-		<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-				<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
-		<![endif]-->
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Copse" type="text/css">
-		<link rel="stylesheet" media="all" href="@{'/public/stylesheets/style.css'}"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
-
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-		<script type="text/javascript" src="@{'/public/javascripts/wonderbolts.js'}"></script>
-
-		</head>
-		
-		
-	
-<body lang="en">
-<header>
-	<h1>Moss Street Market</h1>
-
-	<nav><ul>
-		<li><a href="index" id="active">Overview</a></li>
-		<li><a href="vendors">Vendors</a></li>
-		<li><a href="bookings">Bookings</a></li>
-		<li><a href="finance">Finance</a></li>
-	</ul></nav>
-</header>
-<div id="main">
 	<hgroup>
 	<h2>Overview for</h2>
-	<select>
-		<option value="November 5">November 5</option>
-		<option value="November 12">November 12</option>
-	</select>
+	#{datedropdown dates:dateRange /}
 	</hgroup>
 	
-	<table id="overview">    
+	<table id="overview"> 
 		<tr>  
 			<td class="active">
 				<span class="number">1</span>
@@ -62,10 +28,7 @@
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
 					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
+					#{datedropdown dates:dateRange /}
 					<hr />
 					<a href="#">Go to Stall History</a><br />
 					<a href="#">Go to Current Vendor History</a>
@@ -91,10 +54,7 @@
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
 					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
+					#{datedropdown dates:dateRange /}
 					<hr />
 					<a href="#">Go to Stall History</a><br />
 					<a href="#">Go to Current Vendor History</a>
@@ -365,10 +325,3 @@
 <span><div></div>Crafts (1/20)</span>
 <span><div class="produce"></div>Produce (1/4)</span>
 </div>
-</div>
-<footer>
-	<a href="http://www.wonderbolts.info"><img src="@{'/public/images/wb.png'}" alt="Wonderbolts Development" /></a>
-</footer>
-	</body>
-	
-</html>
