@@ -7,6 +7,27 @@ import models.*;
 
 public class Application extends Controller {
 
+    public static void initData(){
+        Merchant John = new Merchant("John Leicestershire", "Crafts", "1243 Notreal Ave,\nVictoria, BC,\nV8P 2Y9","(250) 123-4567").save();
+        Merchant Mary = new Merchant("Mary Lamb", "Produce","221 Baker St,\nVictoria, BC\nV8P 2J9","(250) 892-1892").save();
+        Merchant Susan = new Mercant("Susan Brown", "Crafts","231 Christmas St.\nVictoria, BC\nV8P 9K8,"(250) 182-3942").save();
+        
+        for (int i = 1; i <= 32; i++){
+            Calendar last = Calendar.set(2010,11-1,26);
+            Calendar next = Calendar.set(2011,12-1,3);
+            if (i <= 4)
+                Stall stall = new Stall(i,"Crafts",last,next).save();
+            else
+                Stall stall = new Stall(i,"Produce",last,next).save();
+            last.add(DAY_OF_YEAR,7);
+            next.add(DAY_OF_YEAR,7);
+        }
+
+        Booking b1 = new Booking(Stall.find("byNumber",1).first(),Calendar.set(2011,11-1,26),John).save();
+        Booking b2 = new Booking(Stall.find("byNumber",5).first(),Calendar.set(2011,11-1,26),Mary).save();
+        Booking b3 = new Booking(Stall.find("byNumber",11).first(),Calendar.set(2011,12-1,03),Susan).save();
+        System.out.println("success! Database populated with dummy data");  
+    }
     public static void index() {
         render();
     }
