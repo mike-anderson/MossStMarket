@@ -10,12 +10,13 @@ import models.Merchant;
 public class Booking extends Model {
      
      public Stall       location;
-     public Date        date;
+     public Calendar        date;
      public Merchant    holder;
     
-     public Booking(Stall _location, Date _date, Merchant _holder){
+     public Booking(Stall _location, Calendar _date, Merchant _holder){
         this.location = _location;
         this.date = _date;
         this.holder = _holder;
      }
+
 }
