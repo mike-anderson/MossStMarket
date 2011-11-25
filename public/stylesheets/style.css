@@ -135,7 +135,7 @@ hr {
 }
 header {
 	position: relative;
-	background: url('../images/logo.png') no-repeat left top;
+	background: url('/public/images/logo.png') no-repeat left top;
 	padding-left: 135px;
 	min-height: 80px;
 }
@@ -201,9 +201,7 @@ nav li a:hover {
 	position: relative;
 }
 .button {
-	position: absolute;
-	top: 10px;
-	right: 10px;
+	display: inline-block;
 	border: 0;
 	background-color: #8c8f69;
 	color: #fff;
@@ -212,6 +210,11 @@ nav li a:hover {
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
 	border-radius: 15px;	
+}
+.topright {
+	position: absolute;
+	top: 10px;
+	right: 10px;
 }
 .button:hover {
 	color: #fff;
@@ -235,6 +238,53 @@ footer {
 }
 footer a {
 	border: none;
+}
+.half  {
+	width: 46%;
+	float: left;
+}
+.second.half {
+	margin-left: 4%;
+}
+.half table {
+	width: 100%;
+}
+#fade { /*--Transparent background layer--*/
+	display: none; /*--hidden by default--*/
+	background: #000;
+	position: fixed; left: 0; top: 0;
+	width: 100%; height: 100%;
+	opacity: .80;
+	z-index: 9999;
+}
+.popup {
+	display: none; /*--hidden by default--*/
+	background: #fff;
+	padding: 20px;
+	float: left;
+	font-size: 1.2em;
+	position: fixed;
+	top: 50%; left: 50%;
+	z-index: 99999;
+	/*--CSS3 Box Shadows--*/
+	-webkit-box-shadow: 0px 0px 20px #000;
+	-moz-box-shadow: 0px 0px 20px #000;
+	box-shadow: 0px 0px 20px #000;
+	/*--CSS3 Rounded Corners--*/
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+}
+img.btn_close {
+	float: right;
+	margin: -10px -10px 0 0;
+}
+/*--Making IE6 Understand Fixed Positioning--*/
+*html #fade {
+	position: absolute;
+}
+*html .error {
+	position: absolute;
 }
 /*-----
 PAGE SPECIFIC STUFF
@@ -278,9 +328,6 @@ PAGE SPECIFIC STUFF
 #vendor {
 	float: left;
 	width: 614px;
-}
-#vendor .button {
-	position: static;
 }
 .overhidden {
 	overflow: hidden;
@@ -329,7 +376,7 @@ PAGE SPECIFIC STUFF
 #overview td.maintenance {
 	border-style: solid;
 	border-color: #fff;
-	background: #fcbe2f url('../images/maintenance.png') center center no-repeat;
+	background: #fcbe2f url('/public/images/maintenance.png') center center no-repeat;
 	color: #fff;
 }
 #overview td.produce.active, div.produce {
@@ -497,6 +544,44 @@ td.bottom > .tooltip {
 			transform: rotate(-225deg);
 		}
 	
+@media only screen and (min-width: 769px) {
+	td > .tooltip {
+	-webkit-transition-property:opacity, margin-top, visibility, margin-left;
+	-webkit-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	-webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+	
+	-moz-transition-property:opacity, margin-top, visibility, margin-left;
+	-moz-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	-moz-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+	
+	-o-transition-property:opacity, margin-top, visibility, margin-left;
+	-o-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	-o-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+	
+	transition-property:opacity, margin-top, visibility, margin-left;
+	transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+	transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in;
+	}
+
+	td > .tooltip.clicked {
+		
+		-webkit-transition-property:opacity, margin-top, visibility, margin-left;
+		-webkit-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+		-webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+		
+		-moz-transition-property:opacity, margin-top, visibility, margin-left;
+		-moz-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
+		-moz-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;		
+		
+		-o-transition-property:opacity, margin-top, margin-left;
+		-o-transition-duration:0.5s, 0.3s, 0.3s;  
+		-o-transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
+		
+		transition-property:opacity, margin-top, visibility, margin-left;
+		transition-duration:0.5s, 0.3s, 0.5s;  
+		transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;	
+	}
+}
 /*		Tablet Layout: 768px.
 		Gutters: 24px.
 		Outer margins: 28px.
@@ -569,12 +654,17 @@ px      68    160    252    344    436    */
 		}
 	table {
 		width: 100%;
+		margin: 0 auto 0 auto;
 	}
 	.button {
 		position: static;
 		display: block;
 		text-align: center;
 		margin: 10px;
+	}
+	.half {
+		width: 100%;
+		margin: 0 !important;
 	}
 	#sidebar {
 		width: 100%;
@@ -638,8 +728,8 @@ px      68    160    252    */
 @media only screen and (max-width: 479px) {
 	
 	body {
-		width: 252px;
-		padding: 0 34px 60px;
+		width: 320px;
+		padding: 0 0 60px;
 	}
 	header {
 		min-height: 120px;
@@ -652,52 +742,21 @@ px      68    160    252    */
 		font-size: 12px;
 		line-height: 18px;
 	}
+	#main {
+		-moz-border-radius: 0;
+		border-radius: 0;
+		border-radius: 0;
+	}
+	#main table {
+		margin-left: -10px;
+	}
 	#overview td {
 		display: block;
-		margin: 0 0 10px 0;
-		width: 168px;
+		margin: 0 auto 10px;
+		width: 252px;
 	}
 	#overview td span.name {
 		font-size: 16px;
 		line-height: 24px;
-	}
-}
-
-@media only screen and (min-width: 769px) {
-	td > .tooltip {
-	-webkit-transition-property:opacity, margin-top, visibility, margin-left;
-	-webkit-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
-	-webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
-	
-	-moz-transition-property:opacity, margin-top, visibility, margin-left;
-	-moz-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
-	-moz-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
-	
-	-o-transition-property:opacity, margin-top, visibility, margin-left;
-	-o-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
-	-o-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
-	
-	transition-property:opacity, margin-top, visibility, margin-left;
-	transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
-	transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in;
-	}
-
-	td > .tooltip.clicked {
-		
-		-webkit-transition-property:opacity, margin-top, visibility, margin-left;
-		-webkit-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
-		-webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
-		
-		-moz-transition-property:opacity, margin-top, visibility, margin-left;
-		-moz-transition-duration:0.5s, 0.3s, 0.5s, 0.3s;  
-		-moz-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;		
-		
-		-o-transition-property:opacity, margin-top, margin-left;
-		-o-transition-duration:0.5s, 0.3s, 0.3s;  
-		-o-transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
-		
-		transition-property:opacity, margin-top, visibility, margin-left;
-		transition-duration:0.5s, 0.3s, 0.5s;  
-		transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;	
 	}
 }

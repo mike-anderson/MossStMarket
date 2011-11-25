@@ -13,25 +13,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function () {
-	
-		$('#overview td').on("click",
-			function() {
-				$(this).children('.tooltip').addClass('clicked');
-			}
-		);
-
-		$(".close").on("click", function (e) {
-			e.stopPropagation();
-			$(this).parent(".tooltip").removeClass("clicked");
-		});
-
-	});
-
-</script>
-
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/wonderbolts.js'}"></script>
 
 		</head>
 		
@@ -74,7 +57,7 @@
 					<h4>Status:</h4>
 						Booked by <strong>John Leicestershire</strong><br />
 						until <strong>November 12</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -103,7 +86,7 @@
 					<h4>Status:</h4>
 						Booked by <strong>Mary Lamb</strong><br />
 						until <strong>November 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -130,7 +113,7 @@
 					<h4>Status:</h4>
 						Booked by <strong>Mary Lamb</strong><br />
 						until <strong>November 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -157,7 +140,7 @@
 					<h4>Status:</h4>
 						<strong>Under Maintenance</strong><br />
 						until <strong>November 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -185,7 +168,7 @@
 					<h4>Status:</h4>
 						Booked by <strong>Mary Lamb</strong><br />
 						until <strong>November 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -214,7 +197,7 @@
 					<h4>Status:</h4>
 						This stall is free<br />
 						until <strong>December 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -242,7 +225,7 @@
 					<h4>Status:</h4>
 						This stall is free<br />
 						until <strong>December 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -270,7 +253,7 @@
 					<h4>Status:</h4>
 						This stall is free<br />
 						until <strong>December 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -320,7 +303,7 @@
 					<h4>Status:</h4>
 						This stall is free<br />
 						until <strong>December 19</strong><br />
-					<a href="#">Add New Booking</a><br />
+					<a href="add_booking">Add New Booking</a><br />
 					<hr />
 					<h4>Last Maintenance Date:</h4>
 					Dec 18, 2010<br />
@@ -360,7 +343,7 @@
 						<h4>Status:</h4>
 							This stall is free<br />
 							until <strong>December 19</strong><br />
-							<a href="#">Add New Booking</a><br />
+							<a href="add_booking">Add New Booking</a><br />
 						<hr />
 						<h4>Last Maintenance Date:</h4>
 						Dec 18, 2010<br />

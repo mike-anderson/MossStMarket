@@ -36,7 +36,9 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
-
+	public static void add_booking(){
+		render();
+	}
 	public static void bookings(){
 		render();
 	}
