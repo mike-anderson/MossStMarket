@@ -1,0 +1,47 @@
+#{if _booking}
+<td class="active">
+#{/if}
+#{else}
+<td>
+#{/else}
+	<span class="number">${_stall.number}</span>
+	<span class="tooltip">
+		<span></span><img class="close" src="@{'/public/images/close.png'}">
+		<h3>Stall #${_stall.number}</h3>
+		<h4>Category:</h4>
+		#{if _booking}
+		<select disabled="disabled">
+			*{#{option _categories.get(_stall.categoryid).id} ${_categories.get(_stall.categoryid).name} #{/option}}*
+		#{/if}
+		#{else}
+		<select>
+			*{#{list items:_categories, as:'cat'}
+			#{option cat.id} ${cat.name} #{/option}
+			#{/list}}*
+		#{/else}
+		</select>
+		<a href="#">Add New Category</a>
+		<hr />
+		<h4>Status:</h4>
+			#{if _booking}
+				Booked by <strong>${_merchants.get(_booking.merchantid).name}</strong><br />
+				until <strong>${_booking.enddate.format('MMMMM dd, yyyy')}</strong><br />
+				<a href="add_booking">Edit Booking</a><br />	
+			#{/if}
+			#{else}
+				OPEN
+				<a href="add_booking">Add New Booking</a><br />
+			#{/else}
+		<hr />
+		<h4>Last Maintenance Date:</h4>
+		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
+		<h4>Next Maintenance Date:</h4>
+		#{datedropdown dates:dateRange, selectDate:_stall.nextmaintenancedate/}
+		<hr />
+		<a href="#">Go to Stall History</a><br />
+		<a href="#">Go to Current Vendor History</a>
+		</span>
+	#{if _booking}
+	<span class="name">${_merchants.get(_booking.merchantid).name}</span>
+	#{/if}
+</td>

@@ -9,15 +9,16 @@ import models.Category;
 public class Merchant extends Model {
      
      public String      name;
-     public Category      category;
+     public Long	    categoryid;
      public String      address;
      public String      email;
-     public String      phoneNumber;
+     public String      phonenumber;
     
-     public Merchant(String _name, Category _category, String _address, String _phoneNumber){
+     public Merchant(String _name, Long _categoryID, String _address, String _phoneNumber, String _email){
         this.name = _name;
-        this.category = _category;
+        this.categoryid = _categoryID;
         this.address = _address;
-        this.phoneNumber = _phoneNumber;
+		this.email = _email;
+        this.phonenumber = _phoneNumber;
      }
 }

@@ -9,15 +9,15 @@ import models.Category;
 public class Stall extends Model {
      
      public Integer     number;
-     public Category      category;
-     public Calendar    lastMaintenanceDate;
-     public Calendar    nextMaintenanceDate;
+     public Long	    categoryid;
+     public Date	    lastmaintenancedate;
+     public Date    	nextmaintenancedate;
     
-     public Stall(Integer _number, Category _category, Calendar _lastMaintenanceDate, Calendar _nextMaintenanceDate){
+     public Stall(Integer _number, Long _categoryID, Date _lastMaintenanceDate, Date _nextMaintenanceDate){
         this.number = _number;
-        this.category = _category;
-        this.lastMaintenanceDate = _lastMaintenanceDate;
-        this.nextMaintenanceDate = _nextMaintenanceDate;
+        this.categoryid = _categoryID;
+        this.lastmaintenancedate = _lastMaintenanceDate;
+        this.nextmaintenancedate = _nextMaintenanceDate;
      }
 }
 

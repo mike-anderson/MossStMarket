@@ -1,5 +1,10 @@
 <select>
 	#{list items:_dates, as:'date'}
-	<option value="${date}">${date}</option>
+		#{if date.equals(_selectDate)}
+			<option value="${date}" selected="selected">${date}</option>
+		#{/if}
+		#{else}
+			<option value="${date}">${date}</option>
+		#{/else}
 	#{/list}
 </select>

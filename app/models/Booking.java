@@ -3,20 +3,20 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 import play.db.jpa.*;
-import models.Stall;
-import models.Merchant;
 
 @Entity
 public class Booking extends Model {
      
-     public Stall       location;
-     public Calendar        date;
-     public Merchant    holder;
+     public Integer	    stallnumber;
+     public Date	 	startdate;
+	 public Date		enddate;
+     public long		merchantid;
     
-     public Booking(Stall _location, Calendar _date, Merchant _holder){
-        this.location = _location;
-        this.date = _date;
-        this.holder = _holder;
+     public Booking(Integer _location, Date _startDate, Date _endDate, long _merchant){
+        this.stallnumber = _location;
+        this.startdate = _startDate;
+		this.enddate = _endDate;
+        this.merchantid = _merchant;
      }
 
 }

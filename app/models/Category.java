@@ -9,10 +9,12 @@ import models.Category;
 public class Category extends Model {
      
      public String      name;
-     public String      colour;
+     public Integer	    colour;
+	 public Integer		price;
     
-     public Category(String _name, String _colour){
+     public Category(String _name, Integer _colour, Integer _price){
         this.name = _name;
         this.colour = _colour;
+		this.price = _price;
      }
 }

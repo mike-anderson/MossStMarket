@@ -3,321 +3,39 @@
 
 	<hgroup>
 	<h2>Overview for</h2>
-	#{datedropdown dates:dateRange /}
+	#{datedropdown dates:dateRange, selectDate:currentDate/}
 	</hgroup>
-	
+	*{Debug: ${currentBookings.get(1).stallnumber}}*
 	<table id="overview"> 
-		<tr>  
-			<td class="active">
-				<span class="number">1</span>
-				<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #1</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Crafts">Crafts</option>
-						<option value="Produce">Produce</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						Booked by <strong>John Leicestershire</strong><br />
-						until <strong>November 12</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					#{datedropdown dates:dateRange /}
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span>
-				<span class="name">John Leicestershire</span>
-			</td>  
-			<td><span class="number">2</span>
-				<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #5</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Produce">Produce</option>
-						<option value="Crafts">Crafts</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						Booked by <strong>Mary Lamb</strong><br />
-						until <strong>November 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					#{datedropdown dates:dateRange /}
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-				</span></td>  
-			<td><span class="number">3</span>
-					<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #5</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Produce">Produce</option>
-						<option value="Crafts">Crafts</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						Booked by <strong>Mary Lamb</strong><br />
-						until <strong>November 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span></td>  
-			<td class="maintenance"><span class="number">4</span>
-				    <span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #4</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Produce">Produce</option>
-						<option value="Crafts">Crafts</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						<strong>Under Maintenance</strong><br />
-						until <strong>November 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span></td>  
-			<td rowspan="6" class="road">&nbsp;</td>  
-			<td class="produce active"><span class="number">5</span>
-				<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #5</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Produce">Produce</option>
-						<option value="Crafts">Crafts</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						Booked by <strong>Mary Lamb</strong><br />
-						until <strong>November 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span>
-					<span class="name">Mary Lamb</span>
-			</td>  
-			<td class="produce"><span class="number">6</span>
-				<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #6</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Produce">Produce</option>
-						<option value="Crafts">Crafts</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						This stall is free<br />
-						until <strong>December 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span>
-			</td>  
-			<td class="produce"><span class="number">7</span>
-				<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #7</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Produce">Produce</option>
-						<option value="Crafts">Crafts</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						This stall is free<br />
-						until <strong>December 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span>
-			</td>   
-			<td class="produce"><span class="number">8</span>
-				<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #8</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Produce">Produce</option>
-						<option value="Crafts">Crafts</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						This stall is free<br />
-						until <strong>December 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span>
-			</td>
-		</tr>
+		<tr> 
+			#{list items:1..4, as:'i'}
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants /} 
+			#{/list}
+			<td rowspan="6" class="road">&nbsp;</td> 
+			#{list items:5..8, as:'i'}
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants /} 
+			#{/list}
 		<tr>
 			<td colspan="9" class="road">&nbsp;</td>
 		</tr>
 		<tr>  
-			<td><span class="number">9</span></td>  
-			<td><span class="number">10</span></td>  
-			<td><span class="number">11</span></td>  
-			<td><span class="number">12</span></td>  
-			<td><span class="number">13</span></td>  
-			<td><span class="number">14</span></td>  
-			<td><span class="number">15</span></td>  
-			<td><span class="number">16</span></td>
+			#{list items:9..16, as:'i'}
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants /} 
+			#{/list}
 		</tr>
 		<tr>  
-			<td><span class="number">17</span></td>  
-			<td><span class="number">18</span></td>  
-			<td><span class="number">19</span></td>  
-			<td><span class="number">20</span></td>  
-			<td><span class="number">21</span></td>  
-			<td><span class="number">22</span></td>  
-			<td><span class="number">23</span></td>  
-			<td class="bottom"><span class="number">24</span>
-				<span class="tooltip">
-					<span></span><img class="close" src="@{'/public/images/close.png'}">
-					<h3>Stall #24</h3>
-					<h4>Category:</h4>
-					<select>
-						<option value="Crafts">Crafts</option>
-						<option value="Produce">Produce</option>
-					</select>
-					<a href="#">Add New Category</a>
-					<hr />
-					<h4>Status:</h4>
-						This stall is free<br />
-						until <strong>December 19</strong><br />
-					<a href="add_booking">Add New Booking</a><br />
-					<hr />
-					<h4>Last Maintenance Date:</h4>
-					Dec 18, 2010<br />
-					<h4>Next Maintenance Date:</h4>
-					<select>
-						<option value="November 12">November 12</option>
-						<option value="November 19">November 19</option>
-					</select>
-					<hr />
-					<a href="#">Go to Stall History</a><br />
-					<a href="#">Go to Current Vendor History</a>
-					</span>
-			</td>
+			#{list items:17..24, as:'i'}
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants /} 
+			#{/list}
 		</tr>
 		<tr>
 			<td colspan="9" class="road">&nbsp;</td>
 		</tr>
 		<tr> 
-			<td><span class="number">25</span></td>  
-			<td><span class="number">26</span></td>  
-			<td><span class="number">27</span></td>  
-			<td><span class="number">28</span></td>  
-			<td><span class="number">29</span></td>  
-			<td><span class="number">30</span></td>  
-			<td><span class="number">31</span></td>
-                <td class="bottom"><span class="number">32</span>
-					<span class="tooltip">
-						<span></span><img class="close" src="@{'/public/images/close.png'}">
-						<h3>Stall #32</h3>
-						<h4>Category:</h4>
-						<select>
-							<option value="Crafts">Crafts</option>
-							<option value="Produce">Produce</option>
-						</select>
-						<a href="#">Add New Category</a>
-						<hr />
-						<h4>Status:</h4>
-							This stall is free<br />
-							until <strong>December 19</strong><br />
-							<a href="add_booking">Add New Booking</a><br />
-						<hr />
-						<h4>Last Maintenance Date:</h4>
-						Dec 18, 2010<br />
-						<h4>Next Maintenance Date:</h4>
-						<select>
-							<option value="November 12">November 12</option>
-							<option value="November 19">November 19</option>
-						</select>
-						<hr />
-						<a href="#">Go to Stall History</a><br />
-						<a href="#">Go to Current Vendor History</a>
-						</span>
-				</td>
-            </tr>
+			#{list items:25..32, as:'i'}
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants /} 
+			#{/list}
+        </tr>
 </table> 
 
 <div id="legend">
