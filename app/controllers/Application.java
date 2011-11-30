@@ -109,8 +109,9 @@ public class Application extends Controller {
 			Merchant merchant = Merchant.findById(booking.merchantid);
 			merchants.put(booking.merchantid, merchant);
 		}
+
 		
-        render(allStalls,allCategories,currentBookings,merchants,currentDate);
+        render(allStalls,allCategories,categoryCounts,currentBookings,merchants,currentDate);
     }
 
 	public static void add_booking(){
