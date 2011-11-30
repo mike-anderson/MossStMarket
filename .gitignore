@@ -4,3 +4,8 @@
 *.swp
 .project
 tmp/*
+
+#robs stuff
+.classpath
+.settings/*
+eclipse/*
