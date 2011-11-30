@@ -1,29 +1,29 @@
 #{extends 'main.html' /}
-#{set title:'Vendors' /}
+#{set title:'Merchants' /}
 #{set overhidden:true /}
 
-<a href="" class="button">Add New Vendor</a>
+<a href="" class="button">Add New Merchant</a>
 <div id="sidebar">
 <form action="/search" method="get" id="search">
 			<input type="text" name="q" class="search-box" value=""/>
 			<input type="image" src="@{'/public/images/search.png'}" class="search-input" value="Search"/>
 		</form>
 	<ul>
-	#{list items:allVendors, as: 'vendor'}
-		<li><a href="#" rel="${vendor.Id}">#${vendor.name}</a></li>
+	#{list items:allMerchants, as: 'merchant'}
+		<li><a href="#" class="merchantlink" rel="${merchant.id}">${merchant.name}</a></li>
 	#{/list}
 	</ul>
 </div>
-#{list items:allVendors, as: 'vendor'}
-	<div class="vendor" id="${vendor.Id}">
+#{list items:allMerchants, as: 'merchant'}
+	<div class="merchant" id="${merchant.id}">
 	<hgroup>
-		<h2>${vendor.Id}</h2>
-		<a href="edit_vendor" class="button">Edit</a>
+		<h2>${merchant.name}</h2>
+		<a href="edit_merchant" class="button">Edit</a>
 	</hgroup>
 	<p>
-	${vendor.address}</p>
+	${merchant.address}</p>
 	<p>
-	${vendor.phoneNumber}</p>
+	${merchant.phonenumber}</p>
 	<h3>Current Balance</h3>
 	<table>
 		<thead>

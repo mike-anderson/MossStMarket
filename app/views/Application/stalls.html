@@ -1,11 +1,8 @@
 #{extends 'main.html' /}
-#{set title:'Bookings' /}
+#{set title:'Stalls' /}
 <hgroup>
-	<h2>Bookings for</h2>
-	<select>
-		<option value="November 5">November 5</option>
-		<option value="November 12">November 12</option>
-	</select>
+	<h2>Stall History for</h2>
+	#{datedropdown dates:dateRange, selectDate:currentDate/}
 	<a href="" class="button">Add New Booking</a>
 </hgroup>
 <table summary="Bookings">

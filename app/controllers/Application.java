@@ -115,7 +115,7 @@ public class Application extends Controller {
 		render();
 	}
 	
-	public static void bookings(){
+	public static void stalls(){
 		List<Booking> allBookings = Booking.findAll();
 		render();
 	}
@@ -124,9 +124,9 @@ public class Application extends Controller {
 		render();
 	}
 	
-	public static void vendors(){
-		List<Merchant> allVendors = Merchant.findAll();
-		render(allVendors);
+	public static void merchants(){
+		List<Merchant> allMerchants = Merchant.findAll();
+		render(allMerchants);
 	}
 
 }

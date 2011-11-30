@@ -329,7 +329,7 @@ PAGE SPECIFIC STUFF
 	margin: 15px 0 0 15px;
 	border: none;
 }
-.vendor {
+.merchant {
 	float: left;
 	width: 614px;
 }
@@ -616,7 +616,7 @@ px      68    160    252    344    436    528    620    712    */
 	table {
 		width: 80%;
 	}
-	.vendor {
+	.merchant {
 		float: left;
 		width: 430px;
 	}
@@ -666,7 +666,7 @@ px      68    160    252    344    436    */
 	#sidebar {
 		width: 100%;
 	}
-	.vendor {
+	.merchant {
 	width: 100%;
 	}
 	#overview {

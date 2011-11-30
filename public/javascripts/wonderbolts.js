@@ -48,13 +48,12 @@
 			});
 			return false;
 		});
-		$('a.vendor[href^=#]').click(function() {
+		$('.merchant').addClass('hidden');
+		$('a.merchantlink[href^=#]').click(function() {
 			
-			var ID = $(this).attr('rel'); //Get Vendor ID
+			var ID = $(this).attr('rel'); //Get merchant ID
 			
-			$('.vendor').fadeOut();
-			
-			$('#' + ID).fadeIn();
-			
+			$('.merchant').addClass('hidden');
+			$('#' + ID).removeClass('hidden');			
 		});
 	});
