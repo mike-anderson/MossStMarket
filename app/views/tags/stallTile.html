@@ -1,8 +1,8 @@
 #{if _booking}
-<td class="active #{if (_stall.number > 16)}bottom#{/if}">
+<td class="active #{if (_stall.number > 16)}bottom#{/if}" style="background-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/if}
 #{else}
-<td class=" #{if (_stall.number > 16)}bottom#{/if}">
+<td class=" #{if (_stall.number > 16)}bottom#{/if}" style="border-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/else}
 	<span class="number">${_stall.number}</span>
 	<span class="tooltip">
