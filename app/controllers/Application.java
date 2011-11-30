@@ -57,6 +57,7 @@ public class Application extends Controller {
 		Calendar cal = Calendar.getInstance();
 		cal.set(2011,12-1,3);
 		Booking b1 = new Booking(1,230,cal.getTime(),cal.getTime(),jack.id).save();
+		Booking b2 = new Booking(10,230,cal.getTime(),cal.getTime(),john.id).save();
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
 		String date = sdf.format(b1.startdate);
 		renderText("Success: added %s to the database\n and booked stall %d for %s",jack.name,b1.stallnumber,date);
