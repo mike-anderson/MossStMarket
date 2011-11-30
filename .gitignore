@@ -9,3 +9,4 @@ tmp/*
 .classpath
 .settings/*
 eclipse/*
+bin/
