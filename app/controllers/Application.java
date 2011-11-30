@@ -28,39 +28,41 @@ public class Application extends Controller {
 			counter++;
 		}
 		
-		Category produce = new Category("Produce",0xCAA3C2,250).save();
-		Category crafts = new Category("Crafts", 0xC0DCDD,300).save();
-		Category jewelry = new Category("Jewelry",0xFFFF9E,90).save();
-		
-		//Stall stall1 = new Stall(1,crafts.name,last,next);
-		Stall stall;
-
-		for (int i = 1; i <= 32; i++){
-            Calendar last = Calendar.getInstance();
-			last.set(2010,11-1,26);
-            Calendar next = Calendar.getInstance();
-			next.set(2011,12-1,3);
-            if (i <= 4) {
-                stall = new Stall(i,crafts.id,last.getTime(),next.getTime()).save();
-			} else {
-                stall = new Stall(i,produce.id,last.getTime(),next.getTime()).save();
-			}
-            last.add(Calendar.DAY_OF_YEAR,7);
-            next.add(Calendar.DAY_OF_YEAR,7);
-        }
-		
 		renderArgs.put("dateRange",dateRange);
 	}
 	
+	@Before	
 	public static void initData(){
-		Category produce = Category.find("byName","Produce").first();
-		Merchant jack = new Merchant("Jack Johnson", produce.id, "123 Fake st.Victoria BC","jackj@uvic.ca","(250) 871-1902").save();
-		Calendar cal = Calendar.getInstance();
-		cal.set(2011,12-1,3);
-		Booking b1 = new Booking(1,cal.getTime(),cal.getTime(),jack.id).save();
-		SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
-		String date = sdf.format(b1.startdate);
-		renderText("Success: added %s to the database\n and booked stall %d for %s",jack.name,b1.stallnumber,date);
+        if(Category.count() == 0) {
+			Category produce = new Category("Produce",0xCAA3C2,250).save();
+			Category crafts = new Category("Crafts", 0xC0DCDD,300).save();
+			Category jewelry = new Category("Jewelry",0xFFFF9E,90).save();
+			
+			Stall stall;
+			
+			for (int i = 1; i <= 32; i++){
+				Calendar last = Calendar.getInstance();
+				last.set(2010,11-1,26);
+				Calendar next = Calendar.getInstance();
+				next.set(2011,12-1,3);
+				if (i <= 4) {
+					stall = new Stall(i,crafts.id,last.getTime(),next.getTime()).save();
+				} else {
+					stall = new Stall(i,produce.id,last.getTime(),next.getTime()).save();
+				}
+				last.add(Calendar.DAY_OF_YEAR,7);
+				next.add(Calendar.DAY_OF_YEAR,7);
+			}
+			
+			Merchant jack = new Merchant("Jack Johnson", produce.id, "123 Fake st.Victoria BC","jackj@uvic.ca","(250) 871-1902").save();
+			Merchant john = new Merchant("John Jackson", produce.id, "124 Fake st.Victoria BC","johnj@uvic.ca","(250) 871-1902").save();
+			Calendar cal = Calendar.getInstance();
+			cal.set(2011,12-1,3);
+			Booking b1 = new Booking(1,230,cal.getTime(),cal.getTime(),jack.id).save();
+			Booking b2 = new Booking(11,230,cal.getTime(),cal.getTime(),john.id).save();
+			SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
+			String date = sdf.format(b1.startdate);
+		}
     }
 
 	public static void getBookings(Integer year, Integer month, Integer day){

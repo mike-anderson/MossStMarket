@@ -1,10 +1,10 @@
 #{if _booking}
-<td class="active #{if (_stall.number > 16)}bottom#{/if}">
+<td class="active #{if (_stall.number > 16)}bottom#{/if}" style="background-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/if}
 #{else}
-<td class=" #{if (_stall.number > 16)}bottom#{/if}">
+<td class=" #{if (_stall.number > 16)}bottom#{/if}" style="border-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/else}
-	<span class="number">${_stall.number}</span>
+	<span class="number" style="color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">${_stall.number}</span>
 	<span class="tooltip">
 		<span></span><img class="close" src="@{'/public/images/close.png'}">
 		<h3>Stall #${_stall.number}</h3>
