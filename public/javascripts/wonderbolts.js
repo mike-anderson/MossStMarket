@@ -48,12 +48,13 @@
 			});
 			return false;
 		});
-		$('a.vendor[href^=#]'.click(function() {
+		$('a.vendor[href^=#]').click(function() {
+			
 			var ID = $(this).attr('rel'); //Get Vendor ID
 			
 			$('.vendor').fadeOut();
 			
 			$('#' + ID).fadeIn();
 			
-		}
+		});
 	});

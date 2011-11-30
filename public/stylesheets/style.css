@@ -373,18 +373,11 @@ PAGE SPECIFIC STUFF
 	border-color: #fff !important;
 	background-color: #c0dcdd;
 }
-#overview td.produce {
-	border-color: #caa3c2;
-	color: #caa3c2;
-}
 #overview td.maintenance {
 	border-style: solid;
 	border-color: #fff;
 	background: #fcbe2f url('/public/images/maintenance.png') center center no-repeat;
 	color: #fff;
-}
-#overview td.produce.active, div.produce {
-	background-color: #caa3c2 !important;
 }
 #overview td span.number {
 	margin-bottom: -10px;

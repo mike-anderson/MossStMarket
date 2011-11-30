@@ -40,6 +40,10 @@
 
 <div id="legend">
 <h3>LEGEND</h3>
+
 <span><div></div>Crafts (1/20)</span>
 <span><div class="produce"></div>Produce (1/4)</span>
+*{#{list items:_categories, as:'cat'}
+	<span>#{div cat.id}#{/div} ${cat.name} #</span>
+#{/list}}*
 </div>

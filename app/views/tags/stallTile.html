@@ -1,8 +1,8 @@
 #{if _booking}
-<td class="active">
+<td class="active #{if (_stall.number > 16)}bottom#{/if}">
 #{/if}
 #{else}
-<td>
+<td class=" #{if (_stall.number > 16)}bottom#{/if}">
 #{/else}
 	<span class="number">${_stall.number}</span>
 	<span class="tooltip">
@@ -29,7 +29,7 @@
 				<a href="add_booking">Edit Booking</a><br />	
 			#{/if}
 			#{else}
-				OPEN
+				This stall is <strong>Open</strong><br />
 				<a href="add_booking">Add New Booking</a><br />
 			#{/else}
 		<hr />
