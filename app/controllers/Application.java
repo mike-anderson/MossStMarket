@@ -111,7 +111,7 @@ public class Application extends Controller {
 		}
 
 		
-        render(allStalls,allCategories,categoryCounts,currentBookings,merchants,currentDate);
+        render(allStalls,allCategories,/*categoryCounts,*/currentBookings,merchants,currentDate);
     }
 
 	public static void add_booking(){
