@@ -109,8 +109,9 @@ public class Application extends Controller {
 			Merchant merchant = Merchant.findById(booking.merchantid);
 			merchants.put(booking.merchantid, merchant);
 		}
+
 		
-        render(allStalls,allCategories,currentBookings,merchants,currentDate);
+        render(allStalls,allCategories,categoryCounts,currentBookings,merchants,currentDate);
     }
 
 	public static void add_booking(){
@@ -123,7 +124,34 @@ public class Application extends Controller {
 	}
 	
 	public static void finance(){
-		render();
+		
+		Calendar startDate = Calendar.getInstance();
+		int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
+		startDate.add(Calendar.DATE, daysUntilSaturday);
+		Date currentDate = DateUtils.round(startDate.getTime(), Calendar.DATE);
+		
+		//List<Booking> currentBookingList = Booking.find("byStartdate",currentDate).fetch();
+		List<Booking> currentBookingList = Booking.findAll();
+		
+		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
+		for(Booking booking : currentBookingList){
+			Merchant merchant = Merchant.findById(booking.merchantid);
+			merchants.put(booking.merchantid, merchant);
+		}
+		
+		List<Category> categoryList = Category.findAll();
+		Map<Long, Category> allCategories = new HashMap<Long,Category>();
+		for(Category cat : categoryList){
+			allCategories.put(cat.id,cat);
+		}
+		
+		List<Stall> stallList = Stall.findAll();
+		Map<Integer, Stall> allStalls = new HashMap<Integer,Stall>();
+		for(Stall stall : stallList){
+			allStalls.put(stall.number, stall);
+		}
+		
+		render(currentBookingList,merchants,allCategories,allStalls);
 	}
 	
 	public static void merchants(){

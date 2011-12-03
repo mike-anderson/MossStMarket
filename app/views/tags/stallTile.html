@@ -11,13 +11,13 @@
 		<h4>Category:</h4>
 		#{if _booking}
 		<select disabled="disabled">
-			*{#{option _categories.get(_stall.categoryid).id} ${_categories.get(_stall.categoryid).name} #{/option}}*
+			<option value="${_categories.get(_stall.categoryid).name}">${_categories.get(_stall.categoryid).name}</option>
 		#{/if}
 		#{else}
 		<select>
-			*{#{list items:_categories, as:'cat'}
-			#{option cat.id} ${cat.name} #{/option}
-			#{/list}}*
+			#{list items:_categories, as:'cat'}
+			<option value="${cat.value.id}"> ${cat.value.name}</option>
+			#{/list}
 		#{/else}
 		</select>
 		<a href="#">Add New Category</a>
@@ -36,10 +36,13 @@
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
 		<h4>Next Maintenance Date:</h4>
-		#{datedropdown dates:dateRange, selectDate:_stall.nextmaintenancedate/}
+		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMMMM dd, yyyy') /}
+	
 		<hr />
 		<a href="#">Go to Stall History</a><br />
+		#{if _booking}
 		<a href="#">Go to Current Vendor History</a>
+		#{/if}
 		</span>
 	#{if _booking}
 	<span class="name">${_merchants.get(_booking.merchantid).name}</span>

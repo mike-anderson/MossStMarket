@@ -7,30 +7,20 @@
 		<option value="November 12">November 12</option>
 	</select>
 </hgroup>
-	<h3>Unpaid Invoices</h3>
-<table summary="Unpaid Invoices">
+	<h3>Invoices</h3>
+<table summary="Invoices">
     <thead>
     	<tr>
-        	<th scope="col">Vendor</th>
+        	<th scope="col">Merchant</th>
             <th scope="col" class="thin">Amount (CAD)</th>
         </tr>
     </thead>
     <tbody>
+	#{list items:currentBookingList, as:'booking'}
     	<tr>
-        	<td>Stephen C. Cox</td>
-            <td>$300</td>
+        	<td>${merchants.get(booking.merchantid).name}</td>
+            <td>$${allCategories.get(allStalls.get(booking.stallnumber).categoryid).price}</td>
         </tr>
-        <tr>
-        	<td>Josephin Tan</td>
-            <td>$150</td>
-        </tr>
-        <tr>
-        	<td>Joyce Ming</td>
-            <td>$200</td>
-        </tr>
-        <tr>
-        	<td>James A. Pentel</td>
-            <td>$175</td>
-        </tr>
+	#{/list}
     </tbody>
 </table>
