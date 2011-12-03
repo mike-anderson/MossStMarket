@@ -69,12 +69,18 @@ public class Application extends Controller {
 	public static void getBookings(Integer year, Integer month, Integer day)
 	{
 		List<Booking> allBookings = Booking.findAll();
-		List 
+		Map<Long, Booking> bookings = new HashMap<Long,Booking>();
+		Date specifiedDate = new Date(year.intValue() - 1990, month.intValue(), day.intValue());
 
-		for (Booking : i in allBookings)
+		for (Booking i : allBookings)
 		{
-			if (year.intValue() == 
+			if (specifiedDate.compareTo(i.startdate) >= 0 || specifiedDate.compareTo(i.enddate) <= 0)
+			{
+				bookings.put(i.id, i);
+			}
 		}
+
+		render(bookings);
 	}
 
     public static void index(String date) {
