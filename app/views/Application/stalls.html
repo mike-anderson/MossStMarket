@@ -3,7 +3,6 @@
 <hgroup>
 	<h2>Stall History for</h2>
 	#{datedropdown dates:dateRange, selectDate:currentDate/}
-	<a href="" class="button">Add New Booking</a>
 </hgroup>
 <table summary="Bookings">
     <thead>
@@ -24,7 +23,7 @@
 				<td>${merchants.get(booking.value.merchantid).name}</td>
 				<td>${booking.value.startdate.format('MMMMM dd, yyyy')}</td>
 				<td>${booking.value.enddate.format('MMMMM dd, yyyy')}</td>
-				<td><a href="/edit/" class="button">Edit</a></td>
+				<td><a href="/edit/" class="button">View</a></td>
 			</tr>
 		#{/list}
     </tbody>

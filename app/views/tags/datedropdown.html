@@ -1,4 +1,4 @@
-<select>
+<select onchange="gotourl(this.value)">
 	#{list items:_dates, as:'date'}
 		#{if date.equals(_selectDate)}
 			<option value="${date}" selected="selected">${date}</option>

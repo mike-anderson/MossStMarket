@@ -76,7 +76,7 @@ body {
 table
 {
 	background: #fff;
-	width: 70%;
+	width: 80%;
 	border-collapse: collapse;
 	text-align: left;
 }
@@ -332,6 +332,9 @@ PAGE SPECIFIC STUFF
 .merchant {
 	float: left;
 	width: 614px;
+}
+.merchant table {
+	width: 90%;
 }
 .overhidden {
 	overflow: hidden;

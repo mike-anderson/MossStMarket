@@ -9,22 +9,28 @@ import org.apache.commons.lang.time.DateUtils;
 
 public class Application extends Controller {
 	@Before
-	static void fakeDropDowns() {
+	static void dropdownSetup() {
 		Calendar startDate = Calendar.getInstance();
 		int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 		startDate.add(Calendar.DATE, daysUntilSaturday);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
-		String currentDate = sdf.format(startDate.getTime());
+		Calendar tempDate = Calendar.getInstance();
+		tempDate = startDate;
+		
+		SimpleDateFormat dateInWords = new SimpleDateFormat("MMMMM d, yyyy");
+		String dateString = dateInWords.format(tempDate.getTime());
+		SimpleDateFormat dateInNumbers = new SimpleDateFormat("MMMMM d, yyyy");
+		String dateString = dateInNumbers.format(tempDate.getTime());
 		
 		List<String> dateRange = new ArrayList();
-				
+		Map<Long, String> dateRange = new HashMap<Long,String>();
+		
 		int counter = 0;
 		
 		while (counter < 52) {
-			dateRange.add(currentDate);
-			startDate.add(Calendar.DATE,7);
-			currentDate = sdf.format(startDate.getTime());
+			dateRange.put(dateString);
+			tempDate.add(Calendar.DATE,7);
+			dateString = dateInWords.format(tempDate.getTime());
 			counter++;
 		}
 		
@@ -99,7 +105,7 @@ public class Application extends Controller {
     public static void index(String date) {
 		Date currentDate = null;
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("MMddyyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
 			ParsePosition pos = new ParsePosition(0);
 			currentDate = sdf.parse(date,pos);
 		}catch(NullPointerException p){
@@ -111,8 +117,6 @@ public class Application extends Controller {
 			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 			startDate.add(Calendar.DATE, daysUntilSaturday);
 			currentDate = DateUtils.round(startDate.getTime(), Calendar.DATE);
-		} else {
-			System.out.println(currentDate);
 		}
 		
 		List<Category> categoryList = Category.findAll();
@@ -131,7 +135,6 @@ public class Application extends Controller {
 		List<Booking> currentBookingList = Booking.findAll();
 		
 		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate);
-		System.out.println( currentBookings);
 		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
 		for(Booking booking : currentBookingList){
 			Merchant merchant = Merchant.findById(booking.merchantid);
