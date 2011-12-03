@@ -27,10 +27,10 @@
 			<h1>Moss Street Market</h1>
 
 			<nav><ul>
-				<li><a href="index" #{if title=='Overview'}id="active"#{/if}>Overview</a></li>
-				<li><a href="merchants" #{if title=='Merchants'}id="active"#{/if}>Merchants</a></li>
-				<li><a href="stalls" #{if title=='Stalls'}id="active"#{/if}>Stalls</a></li>
-				<li><a href="finance" #{if title=='Finance'}id="active"#{/if}>Finance</a></li>
+				<li><a href="@{Application.index}" #{if title=='Overview'}id="active"#{/if}>Overview</a></li>
+				<li><a href="@{Application.merchants}" #{if title=='Merchants'}id="active"#{/if}>Merchants</a></li>
+				<li><a href="@{Application.stalls}" #{if title=='Stalls'}id="active"#{/if}>Stalls</a></li>
+				<li><a href="@{Application.finance}" #{if title=='Finance'}id="active"#{/if}>Finance</a></li>
 			</ul></nav>
 		</header>
 		<div id="main" #{if overhidden}class="overhidden"#{/if}>
