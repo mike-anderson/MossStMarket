@@ -9,7 +9,7 @@ import org.apache.commons.lang.time.DateUtils;
 
 public class Application extends Controller {
 	@Before
-	static void addDefaults() {
+	static void fakeDropDowns() {
 		Calendar startDate = Calendar.getInstance();
 		int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 		startDate.add(Calendar.DATE, daysUntilSaturday);
@@ -80,16 +80,16 @@ public class Application extends Controller {
 	}
 	
 	//dan's interpretation of the getBookings() render
-	public static Map<Integer,Booking> getBookingsByDate(Integer year, Integer month, Integer day)
+	public static Map<Integer,Booking> getBookingsByDate(Date currentDate)
 	{
 		List<Booking> allBookings = Booking.findAll();
 		Map<Integer, Booking> bookings = new HashMap<Integer,Booking>();
-		Date specifiedDate = new Date(year - 1900, month - 1, day);
 
 		for (Booking i : allBookings)
 		{
-			if (specifiedDate.compareTo(i.startdate) >= 0 && specifiedDate.compareTo(i.enddate) <= 0)
+			if (currentDate.compareTo(i.startdate) >= 0 && currentDate.compareTo(i.enddate) <= 0)
 			{
+				
 				bookings.put(i.stallnumber, i);
 			}
 		}
@@ -99,20 +99,20 @@ public class Application extends Controller {
     public static void index(String date) {
 		Date currentDate = null;
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("MMM/dd/yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat("MMddyyyy");
 			ParsePosition pos = new ParsePosition(0);
 			currentDate = sdf.parse(date,pos);
 		}catch(NullPointerException p){
 			//just dont want this error popping up
 		}
-		if (date == null)
-			System.out.println("SFSDFSDFS");
 
 		if (currentDate == null){
 			Calendar startDate = Calendar.getInstance();
 			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 			startDate.add(Calendar.DATE, daysUntilSaturday);
 			currentDate = DateUtils.round(startDate.getTime(), Calendar.DATE);
+		} else {
+			System.out.println(currentDate);
 		}
 		
 		List<Category> categoryList = Category.findAll();
@@ -129,18 +129,13 @@ public class Application extends Controller {
 		
 		//List<Booking> currentBookingList = Booking.find("byStartdateGreaterThanEqualsAndEnddateLessThanEquals",currentDate, currentDate).fetch();
 		List<Booking> currentBookingList = Booking.findAll();
-
-		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate.getDate(), currentDate.getMonth(), currentDate.getYear());
 		
-		System.out.println(currentBookings);
-		System.out.println(currentBookings.get(1));
+		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate);
+		System.out.println( currentBookings);
 		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
 		for(Booking booking : currentBookingList){
 			Merchant merchant = Merchant.findById(booking.merchantid);
 			merchants.put(booking.merchantid, merchant);
-		}
-		for(Booking booking : currentBookingList){
-			currentBookings.put(booking.stallnumber, booking);
 		}
 		
         render(allStalls,allCategories,currentBookings,merchants,currentDate);
