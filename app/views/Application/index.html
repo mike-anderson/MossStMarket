@@ -3,9 +3,8 @@
 
 	<hgroup>
 	<h2>Overview for</h2>
-	#{datedropdown dates:dateRange, selectDate:currentDate/}
 	</hgroup>
-	*{Debug: ${currentBookings.get(1).stallnumber}}*
+	Debug: ${currentBookings.get(1)}
 	<table id="overview"> 
 		<tr> 
 			#{list items:1..4, as:'i'}
