@@ -65,8 +65,22 @@ public class Application extends Controller {
 		}
     }
 
-	public static void getBookings(Integer year, Integer month, Integer day){
-		
+	//dan's interpretation of the getBookings() render
+	public static void getBookings(Integer year, Integer month, Integer day)
+	{
+		List<Booking> allBookings = Booking.findAll();
+		Map<Long, Booking> bookings = new HashMap<Long,Booking>();
+		Date specifiedDate = new Date(year.intValue() - 1990, month.intValue(), day.intValue());
+
+		for (Booking i : allBookings)
+		{
+			if (specifiedDate.compareTo(i.startdate) >= 0 || specifiedDate.compareTo(i.enddate) <= 0)
+			{
+				bookings.put(i.id, i);
+			}
+		}
+
+		render(bookings);
 	}
 
     public static void index(String date) {
@@ -114,7 +128,8 @@ public class Application extends Controller {
         render(allStalls,allCategories,currentBookings,merchants,currentDate);
     }
 
-	public static void add_booking(){
+	public static void add_booking() {
+		
 		render();
 	}
 	
