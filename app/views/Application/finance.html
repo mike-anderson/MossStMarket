@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Finance' /}
+<a href="javascript:window.print()" class="button topright">Print</a>
 <hgroup>
 	<h2>Finances for</h2>
 	#{datedropdown dates:dateRange, selectDate:dateString,url:"/finance"/}

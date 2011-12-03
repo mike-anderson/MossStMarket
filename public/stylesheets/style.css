@@ -220,7 +220,8 @@ nav li a:hover {
 	padding: 10px;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
-	border-radius: 15px;	
+	border-radius: 15px;
+	white-space: nowrap;
 }
 .topright {
 	position: absolute;

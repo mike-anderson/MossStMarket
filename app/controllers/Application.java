@@ -179,7 +179,29 @@ public class Application extends Controller {
 		
         render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
 	}
-	
+	public static void view_stall(Integer stallNumber) {
+		Date currentDate = new Date();
+
+		List<Category> categoryList = Category.findAll();
+		Map<Long, Category> allCategories = new HashMap<Long,Category>();
+		for(Category cat : categoryList){
+			allCategories.put(cat.id,cat);
+		}
+		
+		Stall currentStall = Stall.findById(Long.valueOf(stallNumber));
+		
+		List<Booking> currentBookingList = Booking.find("stallnumber",stallNumber).fetch();
+		
+		Map<Long, Booking> currentBookings = new HashMap<Long, Booking>();
+		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
+		for(Booking booking : currentBookingList){
+			Merchant merchant = Merchant.findById(booking.merchantid);
+			merchants.put(booking.merchantid, merchant);
+			currentBookings.put(booking.id,booking);
+		}
+		
+        render(currentStall,allCategories,currentBookings,merchants,currentDate);
+	}		
 	public static void finance(String dateString){
 		Date currentDate = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
