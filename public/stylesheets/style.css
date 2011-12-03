@@ -140,12 +140,19 @@ hr {
 header {
 	position: relative;
 	background: url('/public/images/logo.png') no-repeat left top;
-	padding-left: 135px;
 	min-height: 80px;
 }
 header h1 {
 	position: absolute;
 	bottom: 4px;
+}
+header h1 a {
+	padding-left: 135px;
+	border: 0;
+	color: rgb(30,30,30);
+}
+header h1 a:hover {
+	color: rgb(30,30,30);
 }
 a, #overview td span.tooltip a {
 	display: inline;
@@ -605,7 +612,10 @@ px      68    160    252    344    436    528    620    712    */
 		position: static;
 		display: block;
 		text-align: center;		
-	}	
+	}
+	header h1 a {
+		padding-left: 0;
+	}
 	nav {
 		right: auto;
 		width: 100%;
