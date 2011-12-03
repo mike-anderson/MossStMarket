@@ -2,7 +2,7 @@
 #{set title:'Stalls' /}
 <hgroup>
 	<h2>Stall History for</h2>
-	#{datedropdown dates:dateRange, selectDate:currentDate/}
+	#{datedropdown dates:dateRange, selectDate:dateString,url:"/stalls"/}
 </hgroup>
 <table summary="Bookings">
     <thead>
@@ -26,5 +26,10 @@
 				<td><a href="/edit/" class="button">View</a></td>
 			</tr>
 		#{/list}
+		#{else}
+			<tr>
+				<td colspan="6">There are no stalls booked for the current week.</td>
+			</tr>
+		#{/else}
     </tbody>
 </table>

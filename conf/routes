@@ -3,8 +3,10 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
-GET     /{dateString}                           Application.index
+GET     /                                      			Application.index
+GET     /index/{dateString}                           	Application.index
+GET     /stalls/{dateString}                           	Application.stalls
+GET     /finance/{dateString}                          	Application.finance
 
 
 # Ignore favicon requests
