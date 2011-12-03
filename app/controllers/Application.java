@@ -130,7 +130,7 @@ public class Application extends Controller {
 		//List<Booking> currentBookingList = Booking.find("byStartdateGreaterThanEqualsAndEnddateLessThanEquals",currentDate, currentDate).fetch();
 		List<Booking> currentBookingList = Booking.findAll();
 
-		Map<Integer, Booking> currentBookings = getBookingsByDate(startDate.getYear(), startDate.getMonth(), startDate.getYear());
+		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate.getDate(), currentDate.getMonth(), currentDate.getYear());
 		
 		System.out.println(currentBookings);
 		System.out.println(currentBookings.get(1));
