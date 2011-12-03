@@ -1,10 +1,10 @@
-<select onchange="gotourl("/" + this.value)">
+<select class="dateDropdown">
 	#{list items:_dates, as:'date'}
-		#{if date[0].equals(_selectDate)}
-			<option value="${date[0]}" selected="selected">${date[1]}</option>
+		#{if date[0] == _selectDate }
+			<option value="${_url}/${date[0]}" selected="selected">${date[1]}</option>
 		#{/if}
 		#{else}
-			<option value="${date[0]}">${date[1]}</option>
+			<option value="${_url}/${date[0]}">${date[1]}</option>
 		#{/else}
 	#{/list}
 </select>
