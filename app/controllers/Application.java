@@ -19,17 +19,16 @@ public class Application extends Controller {
 		
 		SimpleDateFormat dateInWords = new SimpleDateFormat("MMMMM d, yyyy");
 		String dateString = dateInWords.format(tempDate.getTime());
-		SimpleDateFormat dateInNumbers = new SimpleDateFormat("MMMMM d, yyyy");
-		String dateString = dateInNumbers.format(tempDate.getTime());
+		SimpleDateFormat dateInNumbers = new SimpleDateFormat("MMddyy");
+		String dateNumbers = dateInNumbers.format(tempDate.getTime());
 		
-		List<String> dateRange = new ArrayList();
-		Map<Long, String> dateRange = new HashMap<Long,String>();
-		
+		ArrayList<String[]> dateRange = new ArrayList<String[]>();
+
 		int counter = 0;
-		
 		while (counter < 52) {
-			dateRange.put(dateString);
+			dateRange.add(new String[] {dateNumbers, dateString});
 			tempDate.add(Calendar.DATE,7);
+			dateNumbers = dateInNumbers.format(tempDate.getTime());
 			dateString = dateInWords.format(tempDate.getTime());
 			counter++;
 		}
@@ -66,8 +65,6 @@ public class Application extends Controller {
 			cal.set(2011,12-1,3);
 			Booking b1 = new Booking(1,230,processedDate(2011,11,5,true),processedDate(2011,12,10,false),jack.id).save();
 			Booking b2 = new Booking(11,230,processedDate(2011,11,5,true),processedDate(2011,12,10,false),john.id).save();
-			SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
-			String date = sdf.format(b1.startdate);
 		}
     }
 
@@ -102,23 +99,20 @@ public class Application extends Controller {
 		return bookings;
 	}
 
-    public static void index(String date) {
+    public static void index(String dateString) {
 		Date currentDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
-			ParsePosition pos = new ParsePosition(0);
-			currentDate = sdf.parse(date,pos);
+			currentDate = sdf.parse(dateString,pos);
 		}catch(NullPointerException p){
-			//just dont want this error popping up
-		}
-
-		if (currentDate == null){
 			Calendar startDate = Calendar.getInstance();
 			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 			startDate.add(Calendar.DATE, daysUntilSaturday);
-			currentDate = DateUtils.round(startDate.getTime(), Calendar.DATE);
+			currentDate = startDate.getTime();
+			dateString = sdf.format(currentDate.getTime());
 		}
-		
+		System.out.println(dateString);
 		List<Category> categoryList = Category.findAll();
 		Map<Long, Category> allCategories = new HashMap<Long,Category>();
 		for(Category cat : categoryList){
@@ -141,7 +135,7 @@ public class Application extends Controller {
 			merchants.put(booking.merchantid, merchant);
 		}
 		
-        render(allStalls,allCategories,currentBookings,merchants,currentDate);
+        render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
     }
 
 	public static void add_booking() {
