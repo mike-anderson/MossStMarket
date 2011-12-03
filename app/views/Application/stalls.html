@@ -9,35 +9,23 @@
     <thead>
     	<tr>
              <th scope="col">Stall #</th>
+			<th scope="col">Category</th>
 			<th scope="col">Vendor</th>
             <th scope="col">Start Date</th>
              <th scope="col">End Date</th>
+             <th scope="col"></th>
        </tr>
     </thead>
     <tbody>
-    	<tr>
-         	<td>1</td>
-        	<td>Stephen C. Cox</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-        <tr>
-        	<td>2</td>
-        	<td>Josephin Tan</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-        <tr>
-        	<td>3</td>
-        	<td>Joyce Ming</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-        <tr>
-        	<td>4</td>
-        	<td>James A. Pentel</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
+		#{list items:currentBookings, as:'booking'}
+			<tr>
+				<td>${booking.value.stallnumber}</td>
+				<td>${allCategories.get(allStalls.get(booking.value.stallnumber).categoryid).name}</td>
+				<td>${merchants.get(booking.value.merchantid).name}</td>
+				<td>${booking.value.startdate.format('MMMMM dd, yyyy')}</td>
+				<td>${booking.value.enddate.format('MMMMM dd, yyyy')}</td>
+				<td><a href="/edit/" class="button">Edit</a></td>
+			</tr>
+		#{/list}
     </tbody>
 </table>

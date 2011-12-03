@@ -35,18 +35,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>November 5 &ndash; 12</td>
-				<td>1</td>
-				<td>Produce</td>
-				<td>34</td>
-			</tr>
-			<tr>
-				<td>October 29</td>
-				<td>10</td>
-				<td>Produce</td>
-				<td>34</td>
-			</tr>
+		#{list items:currentBookingList, as:'booking'}
+			#{if booking.merchantid == merchant.id }
+				<tr>
+					<td>${booking.startdate.format('MMMMM dd, yyyy')} - ${booking.enddate.format('MMMMM dd, yyyy')}</td>
+					<td>${booking.stallnumber}</td>
+					<td>${allCategories.get(allStalls.get(booking.stallnumber).categoryid).name}</td>
+					<td>$${booking.price}</td>
+				</tr>
+			#{/if}
+		#{/list}
 		</tbody>
 	</table>
 	</div>
