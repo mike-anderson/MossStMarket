@@ -65,8 +65,16 @@ public class Application extends Controller {
 		}
     }
 
-	public static void getBookings(Integer year, Integer month, Integer day){
-		
+	//dan's interpretation of the getBookings() render
+	public static void getBookings(Integer year, Integer month, Integer day)
+	{
+		List<Booking> allBookings = Booking.findAll();
+		List 
+
+		for (Booking : i in allBookings)
+		{
+			if (year.intValue() == 
+		}
 	}
 
     public static void index(String date) {
@@ -114,7 +122,8 @@ public class Application extends Controller {
         render(allStalls,allCategories,currentBookings,merchants,currentDate);
     }
 
-	public static void add_booking(){
+	public static void add_booking() {
+		
 		render();
 	}
 	
