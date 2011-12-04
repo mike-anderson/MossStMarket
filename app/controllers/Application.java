@@ -9,22 +9,27 @@ import org.apache.commons.lang.time.DateUtils;
 
 public class Application extends Controller {
 	@Before
-	static void addDefaults() {
+	static void dropdownSetup() {
 		Calendar startDate = Calendar.getInstance();
 		int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 		startDate.add(Calendar.DATE, daysUntilSaturday);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
-		String currentDate = sdf.format(startDate.getTime());
+		Calendar tempDate = Calendar.getInstance();
+		tempDate = startDate;
 		
-		List<String> dateRange = new ArrayList();
-				
+		SimpleDateFormat dateInWords = new SimpleDateFormat("MMMMM d, yyyy");
+		String dateString = dateInWords.format(tempDate.getTime());
+		SimpleDateFormat dateInNumbers = new SimpleDateFormat("MMddyy");
+		String dateNumbers = dateInNumbers.format(tempDate.getTime());
+		
+		ArrayList<String[]> dateRange = new ArrayList<String[]>();
+
 		int counter = 0;
-		
 		while (counter < 52) {
-			dateRange.add(currentDate);
-			startDate.add(Calendar.DATE,7);
-			currentDate = sdf.format(startDate.getTime());
+			dateRange.add(new String[] {dateNumbers, dateString});
+			tempDate.add(Calendar.DATE,7);
+			dateNumbers = dateInNumbers.format(tempDate.getTime());
+			dateString = dateInWords.format(tempDate.getTime());
 			counter++;
 		}
 		
@@ -58,33 +63,56 @@ public class Application extends Controller {
 			Merchant john = new Merchant("John Jackson", produce.id, "124 Fake st.Victoria BC","johnj@uvic.ca","(250) 871-1902").save();
 			Calendar cal = Calendar.getInstance();
 			cal.set(2011,12-1,3);
-			Booking b1 = new Booking(1,230,cal.getTime(),cal.getTime(),jack.id).save();
-			Booking b2 = new Booking(11,230,cal.getTime(),cal.getTime(),john.id).save();
-			SimpleDateFormat sdf = new SimpleDateFormat("MMMMM d, yyyy");
-			String date = sdf.format(b1.startdate);
+			Booking b1 = new Booking(1,230,processedDate(2011,11,5,true),processedDate(2011,12,10,false),jack.id).save();
+			Booking b2 = new Booking(11,230,processedDate(2011,11,5,true),processedDate(2011,12,10,false),john.id).save();
 		}
     }
 
-	public static void getBookings(Integer year, Integer month, Integer day){
-		
+	/*
+	processedDate returns a date with the exact time 12:00:00AM or 11:59:59PM,
+			depending on whether it is the start or end date
+	*/
+	public static Date processedDate(Integer year, Integer month, Integer day, boolean isStart) {
+		Date temp;
+		if (isStart)			
+			temp = new Date(year - 1900, month - 1, day,12,00,00);
+		else
+			temp = new Date(year - 1900, month - 1, day,23,59,59);
+		System.out.println(temp);
+		return temp;
+	}
+	
+	//dan's interpretation of the getBookings() render
+	public static Map<Integer,Booking> getBookingsByDate(Date currentDate)
+	{
+		List<Booking> allBookings = Booking.findAll();
+		Map<Integer, Booking> bookings = new HashMap<Integer,Booking>();
+
+		for (Booking i : allBookings)
+		{
+			if (currentDate.compareTo(i.startdate) >= 0 && currentDate.compareTo(i.enddate) <= 0)
+			{
+				
+				bookings.put(i.stallnumber, i);
+			}
+		}
+		return bookings;
 	}
 
-    public static void index(String date) {
+    public static void index(String dateString) {
 		Date currentDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("MMM/dd/yyyy");
-			ParsePosition pos = new ParsePosition(0);
-			currentDate = sdf.parse(date,pos);
+			currentDate = sdf.parse(dateString,pos);
 		}catch(NullPointerException p){
-			//just dont want this error popping up
-		}
-		if (currentDate == null){
 			Calendar startDate = Calendar.getInstance();
 			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 			startDate.add(Calendar.DATE, daysUntilSaturday);
-			currentDate = DateUtils.round(startDate.getTime(), Calendar.DATE);
+			currentDate = startDate.getTime();
+			dateString = sdf.format(currentDate.getTime());
 		}
-		
+
 		List<Category> categoryList = Category.findAll();
 		Map<Long, Category> allCategories = new HashMap<Long,Category>();
 		for(Category cat : categoryList){
@@ -97,88 +125,37 @@ public class Application extends Controller {
 			allStalls.put(stall.number, stall);
 		}
 		
-		//List<Booking> currentBookingList = Booking.find("byStartdateGreaterThanEqualsAndEnddateLessThanEquals",currentDate, currentDate).fetch();
 		List<Booking> currentBookingList = Booking.findAll();
-		Map<Integer, Booking> currentBookings = new HashMap<Integer,Booking>();
-		for(Booking booking : currentBookingList){
-			currentBookings.put(booking.stallnumber, booking);
-		}
 		
+		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate);
 		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
 		for(Booking booking : currentBookingList){
 			Merchant merchant = Merchant.findById(booking.merchantid);
 			merchants.put(booking.merchantid, merchant);
 		}
-
 		
-        render(allStalls,allCategories,currentBookings,merchants,currentDate);
+        render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
     }
 
-	public static void add_booking(){
+	public static void add_booking() {
+		
 		render();
 	}
 	
-	public static void stalls(String date){
+	public static void stalls(String dateString){
 		Date currentDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
 		try{
-			SimpleDateFormat sdf = new SimpleDateFormat("MMM/dd/yyyy");
-			ParsePosition pos = new ParsePosition(0);
-			currentDate = sdf.parse(date,pos);
+			currentDate = sdf.parse(dateString,pos);
 		}catch(NullPointerException p){
-			//just dont want this error popping up
-		}
-		if (currentDate == null){
 			Calendar startDate = Calendar.getInstance();
 			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 			startDate.add(Calendar.DATE, daysUntilSaturday);
-			currentDate = DateUtils.round(startDate.getTime(), Calendar.DATE);
-		}
-		
-		List<Category> categoryList = Category.findAll();
-		Map<Long, Category> allCategories = new HashMap<Long,Category>();
-		for(Category cat : categoryList){
-			allCategories.put(cat.id,cat);
-		}
-		
-		List<Stall> stallList = Stall.findAll();
-		Map<Integer, Stall> allStalls = new HashMap<Integer,Stall>();
-		for(Stall stall : stallList){
-			allStalls.put(stall.number, stall);
-		}
-		
-		//List<Booking> currentBookingList = Booking.find("byStartdateGreaterThanEqualsAndEnddateLessThanEquals",currentDate, currentDate).fetch();
-		List<Booking> currentBookingList = Booking.findAll();
-		Map<Integer, Booking> currentBookings = new HashMap<Integer,Booking>();
-		for(Booking booking : currentBookingList){
-			currentBookings.put(booking.stallnumber, booking);
-		}
-		
-		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
-		for(Booking booking : currentBookingList){
-			Merchant merchant = Merchant.findById(booking.merchantid);
-			merchants.put(booking.merchantid, merchant);
+			currentDate = startDate.getTime();
+			dateString = sdf.format(currentDate.getTime());
 		}
 
-		
-        render(allStalls,allCategories,currentBookings,merchants,currentDate);
-	}
-	
-	public static void finance(){
-		
-		Calendar startDate = Calendar.getInstance();
-		int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
-		startDate.add(Calendar.DATE, daysUntilSaturday);
-		Date currentDate = DateUtils.round(startDate.getTime(), Calendar.DATE);
-		
-		//List<Booking> currentBookingList = Booking.find("byStartdate",currentDate).fetch();
-		List<Booking> currentBookingList = Booking.findAll();
-		
-		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
-		for(Booking booking : currentBookingList){
-			Merchant merchant = Merchant.findById(booking.merchantid);
-			merchants.put(booking.merchantid, merchant);
-		}
-		
 		List<Category> categoryList = Category.findAll();
 		Map<Long, Category> allCategories = new HashMap<Long,Category>();
 		for(Category cat : categoryList){
@@ -191,7 +168,70 @@ public class Application extends Controller {
 			allStalls.put(stall.number, stall);
 		}
 		
-		render(currentBookingList,merchants,allCategories,allStalls);
+		List<Booking> currentBookingList = Booking.findAll();
+		
+		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate);
+		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
+		for(Booking booking : currentBookingList){
+			Merchant merchant = Merchant.findById(booking.merchantid);
+			merchants.put(booking.merchantid, merchant);
+		}
+		
+        render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
+	}
+	public static void view_stall(Integer stallNumber) {
+		Date currentDate = new Date();
+
+		List<Category> categoryList = Category.findAll();
+		Map<Long, Category> allCategories = new HashMap<Long,Category>();
+		for(Category cat : categoryList){
+			allCategories.put(cat.id,cat);
+		}
+		
+		Stall currentStall = Stall.findById(Long.valueOf(stallNumber));
+		
+		List<Booking> currentBookingList = Booking.find("stallnumber",stallNumber).fetch();
+		
+		Map<Long, Booking> currentBookings = new HashMap<Long, Booking>();
+		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
+		for(Booking booking : currentBookingList){
+			Merchant merchant = Merchant.findById(booking.merchantid);
+			merchants.put(booking.merchantid, merchant);
+			currentBookings.put(booking.id,booking);
+		}
+		
+        render(currentStall,allCategories,currentBookings,merchants,currentDate);
+	}		
+	public static void finance(String dateString){
+		Date currentDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
+		try{
+			currentDate = sdf.parse(dateString,pos);
+		}catch(NullPointerException p){
+			Calendar startDate = Calendar.getInstance();
+			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
+			startDate.add(Calendar.DATE, daysUntilSaturday);
+			currentDate = startDate.getTime();
+			dateString = sdf.format(currentDate.getTime());
+		}
+		
+		List<Stall> stallList = Stall.findAll();
+		Map<Integer, Stall> allStalls = new HashMap<Integer,Stall>();
+		for(Stall stall : stallList){
+			allStalls.put(stall.number, stall);
+		}
+		
+		List<Booking> currentBookingList = Booking.findAll();
+		
+		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate);
+		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
+		for(Booking booking : currentBookingList){
+			Merchant merchant = Merchant.findById(booking.merchantid);
+			merchants.put(booking.merchantid, merchant);
+		}
+		
+        render(allStalls,currentBookings,merchants,currentDate,dateString);
 	}
 	
 	public static void merchants(){

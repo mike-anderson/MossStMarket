@@ -19,7 +19,6 @@ public class Booking extends Model {
         this.startdate = _startDate;
 		this.enddate = _endDate;
         this.merchantid = _merchant;
-		// This is for a test commint, k thnx bye
      }
 
 }

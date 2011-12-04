@@ -56,4 +56,7 @@
 			$('.merchant').addClass('hidden');
 			$('#' + ID).removeClass('hidden');			
 		});
+		$(".dateDropdown").change(function(e){
+			window.location = $(this).val();
+		});
 	});

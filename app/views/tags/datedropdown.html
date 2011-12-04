@@ -1,10 +1,10 @@
-<select>
+<select class="dateDropdown">
 	#{list items:_dates, as:'date'}
-		#{if date.equals(_selectDate)}
-			<option value="${date}" selected="selected">${date}</option>
+		#{if date[0] == _selectDate }
+			<option value="${_url}/${date[0]}" selected="selected">${date[1]}</option>
 		#{/if}
 		#{else}
-			<option value="${date}">${date}</option>
+			<option value="${_url}/${date[0]}">${date[1]}</option>
 		#{/else}
 	#{/list}
 </select>

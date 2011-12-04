@@ -1,0 +1,37 @@
+#{extends 'main.html' /}
+#{set title:'Stalls' /}
+#{set overhidden:true /}
+		
+<h2>View Stall #${currentStall.number}</h2>
+<a href="@{Application.add_booking}/${currentStall.number}" class="button topright">Book Stall</a></p>
+
+<h3>Category:</h3>
+<select disabled="disabled">
+	<option value="${allCategories.get(currentStall.categoryid).name}">${allCategories.get(currentStall.categoryid).name}</option>
+</select>
+<a href="#">Add New Category</a>
+
+<h3>Bookings</h3>
+<table summary="Bookings">
+    <thead>
+    	<tr>
+			<th scope="col">Vendor</th>
+            <th scope="col">Start Date</th>
+             <th scope="col">End Date</th>
+       </tr>
+    </thead>
+    <tbody>
+	#{list items:currentBookings, as:'booking'}
+		<tr>
+        	<td>${merchants.get(booking.value.merchantid).name}</td>
+            <td>${booking.value.startdate.format('MMMMM dd, yyyy')}</td>
+            <td>${booking.value.enddate.format('MMMMM dd, yyyy')}</td>
+        </tr>
+	#{/list}
+		#{else}
+			<tr>
+				<td colspan="3">There are no previous bookings for this stall.</td>
+			</tr>
+		#{/else}
+    </tbody>
+</table>

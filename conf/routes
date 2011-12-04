@@ -3,7 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                      			Application.index
+GET     /index/{dateString}                           	Application.index
+GET     /stalls/{dateString}                           	Application.stalls
+GET     /finance/{dateString}                          	Application.finance
+GET     /view_stall/{stallNumber}                       Application.view_stall
+GET     /add_booking/{stallNumber}                       Application.add_booking
+GET     /merchants/{merchantID}                       Application.merchants
 
 
 # Ignore favicon requests

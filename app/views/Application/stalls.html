@@ -1,9 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Stalls' /}
+<a href="javascript:window.print()" class="button topright">Print</a>
+
 <hgroup>
-	<h2>Stall History for</h2>
-	#{datedropdown dates:dateRange, selectDate:currentDate/}
-	<a href="" class="button">Add New Booking</a>
+	<h2>Stalls on</h2>
+	#{datedropdown dates:dateRange, selectDate:dateString,url:"/stalls"/}
 </hgroup>
 <table summary="Bookings">
     <thead>
@@ -17,15 +18,25 @@
        </tr>
     </thead>
     <tbody>
-		#{list items:currentBookings, as:'booking'}
+		#{list items:allStalls, as:'stall'}
 			<tr>
-				<td>${booking.value.stallnumber}</td>
-				<td>${allCategories.get(allStalls.get(booking.value.stallnumber).categoryid).name}</td>
-				<td>${merchants.get(booking.value.merchantid).name}</td>
-				<td>${booking.value.startdate.format('MMMMM dd, yyyy')}</td>
-				<td>${booking.value.enddate.format('MMMMM dd, yyyy')}</td>
-				<td><a href="/edit/" class="button">Edit</a></td>
+				<td>${stall.key}</td>
+					<td>${allCategories.get(stall.value.categoryid).name}</td>
+				#{if currentBookings.get(stall.key)}
+					<td>${merchants.get(currentBookings.get(stall.key).merchantid).name}</td>
+					<td>${currentBookings.get(stall.key).startdate.format('MMMMM dd, yyyy')}</td>
+					<td>${currentBookings.get(stall.key).enddate.format('MMMMM dd, yyyy')}</td>
+				#{/if}
+				#{else}
+					<td colspan="3"></td>
+				#{/else}
+				<td><a href="@{Application.view_stall}/${stall.key}" class="button">View Stall</a></td>
 			</tr>
 		#{/list}
+		#{else}
+			<tr>
+				<td colspan="6">There are no stalls booked for the current week.</td>
+			</tr>
+		#{/else}
     </tbody>
 </table>

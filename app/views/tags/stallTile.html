@@ -30,8 +30,8 @@
 			#{/if}
 			#{else}
 				This stall is <strong>Open</strong><br />
-				<a href="add_booking">Add New Booking</a><br />
 			#{/else}
+				<a href="add_booking">Add New Booking</a><br />
 		<hr />
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
@@ -39,7 +39,7 @@
 		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMMMM dd, yyyy') /}
 	
 		<hr />
-		<a href="#">Go to Stall History</a><br />
+		<a href="@{Application.view_stall}/${_stall.number}">Go to Stall History</a><br />
 		#{if _booking}
 		<a href="#">Go to Current Vendor History</a>
 		#{/if}
