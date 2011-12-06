@@ -222,16 +222,18 @@ public class Application extends Controller {
 			allStalls.put(stall.number, stall);
 		}
 		
-		List<Booking> currentBookingList = Booking.findAll();
-		
 		Map<Integer, Booking> currentBookings = getBookingsByDate(currentDate);
+		List<Booking> currentBookingList = new ArrayList(currentBookings.values());
+		Integer bookingTotal = 0;
+		
 		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
 		for(Booking booking : currentBookingList){
 			Merchant merchant = Merchant.findById(booking.merchantid);
 			merchants.put(booking.merchantid, merchant);
+			bookingTotal += booking.price;
 		}
 		
-        render(allStalls,currentBookings,merchants,currentDate,dateString);
+        render(allStalls,currentBookings,merchants,currentDate,dateString,bookingTotal);
 	}
 	
 	public static void merchants(){
