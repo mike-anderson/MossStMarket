@@ -95,6 +95,12 @@ table tbody tr:hover td
 {
 	color: #aab25d;
 }
+table tfoot td
+{
+	color: #1E1E1E;
+	padding: 10px 8px;
+	border-top: 2px solid #8c8f69;
+}
 .thin {
 	width: 30%;
 }
