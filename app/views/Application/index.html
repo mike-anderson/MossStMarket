@@ -9,23 +9,23 @@
 	<table id="overview"> 
 		<tr> 
 			#{list items:1..4, as:'i'}
-				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange /} 
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange, dateString:dateString /} 
 			#{/list}
 			<td rowspan="6" class="road">&nbsp;</td> 
 			#{list items:5..8, as:'i'}
-				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange /} 
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange, dateString:dateString /} 
 			#{/list}
 		<tr>
 			<td colspan="9" class="road">&nbsp;</td>
 		</tr>
 		<tr>  
 			#{list items:9..16, as:'i'}
-				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange /} 
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange, dateString:dateString /} 
 			#{/list}
 		</tr>
 		<tr>  
 			#{list items:17..24, as:'i'}
-				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange /} 
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange, dateString:dateString /} 
 			#{/list}
 		</tr>
 		<tr>
@@ -33,7 +33,7 @@
 		</tr>
 		<tr> 
 			#{list items:25..32, as:'i'}
-				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange /} 
+				#{stallTile stall:allStalls.get(i), booking:currentBookings.get(i), categories:allCategories, merchants:merchants, dates:dateRange, dateString:dateString /} 
 			#{/list}
         </tr>
 </table> 

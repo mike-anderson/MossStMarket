@@ -2,44 +2,44 @@
 #{set title:'Stalls' /}
 #{set overhidden:true /}
 		
-<h2>Book Stall #1 (Produce)</h2>
+<h2>Book Stall #1 (${cat.name})</h2>
 <a href="" class="button topright">Book Stall</a></p>
 
 <div class="half">
 
 	<h4>Merchant</h4>
 	<select>
-		<option value="November 5">Heather Macphail</option>
-		<option value="November 12">Greg Medhurst</option>
+		#{list items:selectableMerchants, as:'merchant'}
+		<option value="${merchant.name}">${merchant.name}</option>
+		#{/list}
 	</select>
 	<p><a href="#?w=500" rel="popup_name" class="poplight">Add New Merchant</a></p>
 
 	<h4>Start Date</h4>
-		<select>
-			<option value="November 5">November 5</option>
-			<option value="November 12">November 12</option>
+		<select disabled="disabled">
+			<option value="">${currentDate.format('MMMMM dd, yyyy')}</option>
 		</select>
 		
 	<h4>End Date</h4>
-		<select>
-			<option value="November 5">November 5</option>
-			<option value="November 12">November 12</option>
+		<select disabled="disabled">
+			<option value="">${currentDate.format('MMMMM dd, yyyy')}</option>
 		</select>
 	<hr />
 	<h4>Last Maintenance Date</h4>
 	Dec 18, 2010
 
 	<h4>Next Maintenance Date</h4>
-		<select>
-			<option value="November 5">November 5</option>
-			<option value="November 12">November 12</option>
+		<select disabled="disabled">
+			<option value="">${stall.nextmaintenancedate.format('MMMMM dd, yyyy')}</option>
 		</select>
 </div>
 <div class="second half">
 
 	<h4>Upcoming Bookings</h4>
+	#{if futureBookings.isEmpty()}
 	<p>None</p>
-	<h4>Past Bookings</h4>
+	#{/if}
+	#{else}
 	<table summary="Bookings">
     <thead>
     	<tr>
@@ -49,24 +49,40 @@
        </tr>
     </thead>
     <tbody>
+		#{list items:futureBookings, as:'booking'}
     	<tr>
-        	<td>Stephen C. Cox</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-        <tr>
-        	<td>Josephin Tan</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-        <tr>
-        	<td>Joyce Ming</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-    </tbody>
-</table>
-
+			<td>${merchants.get(booking.merchantid).name}</td>
+			<td>${booking.startdate.format('MMMMM dd, yyyy')}</td>
+			<td>${booking.enddate.format('MMMMM dd, yyyy')}</td>
+		</tr>
+		#{/list}
+	</tbody>
+	</table>
+	#{/else}
+	<h4>Past Bookings</h4>
+	#{if pastBookings.isEmpty()}
+	<p>None</p>
+	#{/if}
+	#{else}
+	<table summary="Bookings">
+    <thead>
+    	<tr>
+			<th scope="col">Vendor</th>
+            <th scope="col">Start Date</th>
+             <th scope="col">End Date</th>
+       </tr>
+    </thead>
+    <tbody>
+		#{list items:pastBookings, as:'booking'}
+    	<tr>
+			<td>${merchants.get(booking.merchantid).name}</td>
+			<td>${booking.startdate.format('MMMMM dd, yyyy')}</td>
+			<td>${booking.enddate.format('MMMMM dd, yyyy')}</td>
+		</tr>
+		#{/list}
+	</tbody>
+	</table>
+	#{/else}
 </div>
 <div id="popup_name" class="popup">
     <h2>Error</h2>

@@ -31,7 +31,7 @@
 			#{else}
 				This stall is <strong>Open</strong><br />
 			#{/else}
-				<a href="add_booking">Add New Booking</a><br />
+				<a href="/add_booking/${_stall.number}/${_dateString}">Add New Booking</a><br />
 		<hr />
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />

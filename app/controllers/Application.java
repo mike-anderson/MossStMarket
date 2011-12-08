@@ -137,9 +137,44 @@ public class Application extends Controller {
         render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
     }
 
-	public static void add_booking() {
+	public static void add_booking(String stallNumber, String dateString) {
+	
+		Date currentDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
+		try{
+			currentDate = sdf.parse(dateString,pos);
+		}catch(NullPointerException p){
+			Calendar startDate = Calendar.getInstance();
+			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
+			startDate.add(Calendar.DATE, daysUntilSaturday);
+			currentDate = startDate.getTime();
+			dateString = sdf.format(currentDate.getTime());
+		}
 		
-		render();
+		Stall stall = Stall.find("number",Integer.parseInt(stallNumber)).first();
+		Category cat = Category.findById(stall.categoryid);
+		
+		List<Booking> allBookings = Booking.find("byStallnumber",stall.number).fetch();
+		List<Booking> pastBookings = new ArrayList();
+		List<Booking> futureBookings = new ArrayList();
+		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
+		
+		List<Merchant> selectableMerchants = Merchant.find("categoryid",stall.categoryid).fetch();
+
+		for(Booking booking : allBookings)
+		{
+			Merchant merchant = Merchant.findById(booking.merchantid);
+			merchants.put(booking.merchantid, merchant);
+			if (booking.startdate.getTime() < currentDate.getTime())
+			{
+				pastBookings.add(0,booking);
+			}else{
+				futureBookings.add(0,booking);
+			}
+		}
+		
+		render(stall,currentDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
 	}
 	
 	public static void stalls(String dateString){
@@ -229,8 +264,12 @@ public class Application extends Controller {
 		Map<Long,Merchant> merchants = new HashMap<Long,Merchant>();
 		for(Booking booking : currentBookingList){
 			Merchant merchant = Merchant.findById(booking.merchantid);
+			//WOOO MAGIC NUMBERS!
+			int weekSpan = (int)((booking.enddate.getTime() - booking.startdate.getTime())/(1000*60*60*24*7)) + 1;
+			bookingTotal += (booking.price/weekSpan);
+			booking.price = booking.price/weekSpan;
+			
 			merchants.put(booking.merchantid, merchant);
-			bookingTotal += booking.price;
 		}
 		
         render(allStalls,currentBookings,merchants,currentDate,dateString,bookingTotal);
