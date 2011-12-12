@@ -176,6 +176,17 @@ public class Application extends Controller {
 		
 		render(stall,currentDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
 	}
+
+
+	/* this is dan's attempt at things; might not actually work*/
+	public static void create_merchang(String newName, String, newAddress, String newPhone, String newEmail, Long newCatID)
+	{ //shameless curly-brace same-line plug; fix me later
+		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
+
+		m.create();
+
+		render();
+	}
 	
 	public static void stalls(String dateString){
 		Date currentDate = null;
