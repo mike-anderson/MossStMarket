@@ -1,7 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Overview' /}
 <a href="javascript:window.print()" class="button topright">Print</a>
-
+	#{if flash.success}
+		<div id="immediate" class="popup">
+			<h2>Success</h2>
+			<p class="success">${flash.success}</p>
+		</div>
+	#{/if}
+	
 	<hgroup>
 	<h2>Overview for</h2>
 	#{datedropdown dates:dateRange, selectDate:dateString,url:"/index"/}

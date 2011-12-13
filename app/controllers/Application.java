@@ -6,6 +6,7 @@ import java.util.*;
 import java.text.*;
 import models.*;
 import org.apache.commons.lang.time.DateUtils;
+import play.data.validation.*;
 
 public class Application extends Controller {
 	@Before
@@ -59,8 +60,8 @@ public class Application extends Controller {
 				next.add(Calendar.DAY_OF_YEAR,7);
 			}
 			
-			Merchant jack = new Merchant("Jack Johnson", produce.id, "123 Fake st.Victoria BC","jackj@uvic.ca","(250) 871-1902").save();
-			Merchant john = new Merchant("John Jackson", produce.id, "124 Fake st.Victoria BC","johnj@uvic.ca","(250) 871-1902").save();
+			Merchant jack = new Merchant("Jack Johnson", produce.id, "123 Fake st.<br />Victoria BC","jackj@uvic.ca","(250) 871-1902").save();
+			Merchant john = new Merchant("John Jackson", produce.id, "124 Fake st.<br />Victoria BC","johnj@uvic.ca","(250) 871-1902").save();
 			Calendar cal = Calendar.getInstance();
 			cal.set(2011,12-1,3);
 			Booking b1 = new Booking(1,230,processedDate(2011,11,5,true),processedDate(2011,12,10,false),jack.id).save();
@@ -178,29 +179,57 @@ public class Application extends Controller {
 
 	public static void add_category(String category_name, String category_colour, String category_price)
 	{
-		Category c = new Category(category_name, Integer.parseInt(category_colour), Integer.parseInt(category_price));
+		validation.required(category_name);
+		validation.required(category_colour);
+		validation.required(category_price);
+		validation.range(category_price, 1, 5000);
+
+		if(validation.hasErrors()) {
+		   params.flash(); // add http parameters to the flash scope
+		   validation.keep(); // keep the errors for the next request
+		   create_category();
+	   }
+		flash.success("Thanks for adding the '%s' Category", category_name);
+		Category c = new Category(category_name, Integer.parseInt(category_colour,16), Integer.parseInt(category_price));
 		c.save();
 		index(current_date());
 	}
 
 	public static void create_category(){ 
-
 		render();
 	}
 	
 	public static void add_merchant(String merchant_name, String merchant_category, String merchant_addr1, String merchant_addr2, String merchant_city, String merchant_province, String merchant_postal, String merchant_email, String merchant_telephone)
 	{
-		String address = merchant_addr1 + merchant_addr2 + merchant_city + merchant_province + merchant_postal;
+	
+		validation.required(merchant_name);
+		validation.required(merchant_category);
+		validation.required(merchant_addr1);
+		validation.required(merchant_city);
+		validation.required(merchant_province);
+		validation.required(merchant_postal);
+		validation.required(merchant_telephone);
+		validation.email(merchant_email);
+
+		if(validation.hasErrors()) {
+		   params.flash(); // add http parameters to the flash scope
+		   validation.keep(); // keep the errors for the next request
+		   create_merchant();
+		}		
+		String address = merchant_addr1 + "<br />";
+		if (!merchant_addr2.isEmpty()) {
+			address = address + merchant_addr2 + "<br />";
+		}
+		System.out.println("booop '" + merchant_addr2 + "'");
+		address = address + merchant_city + ", " + merchant_province + "<br />" + merchant_postal;
 		
 		Merchant m = new Merchant(merchant_name, Long.parseLong(merchant_category), address, merchant_telephone, merchant_email);
 		m.save();
+		flash.success("Thanks for adding a new merchant, '%s'", merchant_name);
 		merchants();
 	}
 	
-	public static void create_merchant(String newName, String newAddress, String newPhone, String newEmail, Long newCatID){ 
-		
-		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
-
+	public static void create_merchant(){ 
 		List<Category> categoryList = Category.findAll();
 		Map<Long, Category> allCategories = new HashMap<Long,Category>();
 		for(Category cat : categoryList)
