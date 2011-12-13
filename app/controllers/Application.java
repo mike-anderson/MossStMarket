@@ -176,32 +176,37 @@ public class Application extends Controller {
 		render(stall,currentDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
 	}
 
-	public static boolean add_merchant(String merchant_name, String merchant_category, String merchant_addr1, String merchant_addr2, String merchant_city, String merchant_province, String merchant_postal, String merchant_email, String merchant_telephone)
+	public static void add_category(String )
 	{
-		return false;
+		Category c = new Category( );
+		c.save();
+		index();
 	}
 
-<<<<<<< HEAD
-	// Work on progress
+	public static void create_category(){ 
+
+		render();
+	}
+	
+	public static void add_merchant(String merchant_name, String merchant_category, String merchant_addr1, String merchant_addr2, String merchant_city, String merchant_province, String merchant_postal, String merchant_email, String merchant_telephone)
+	{
+		String address = merchant_addr1 + merchant_addr2 + merchant_city + merchant_province + merchant_postal;
+		
+		Merchant m = new Merchant(merchant_name, Long.parseLong(merchant_category), address, merchant_telephone, merchant_email);
+		m.save();
+		merchants();
+	}
+	
 	public static void create_merchant(String newName, String newAddress, String newPhone, String newEmail, Long newCatID){ 
 		
 		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
-=======
-	/* this is dan's attempt at things; might not actually work*/
-	public static void create_merchant()
-	{
+
 		List<Category> categoryList = Category.findAll();
 		Map<Long, Category> allCategories = new HashMap<Long,Category>();
 		for(Category cat : categoryList)
 		{
 			allCategories.put(cat.id,cat);
 		}
-		//Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
->>>>>>> dev-dan
-
-		//m.create();
-		
-		//System.out.println("CALLED");
 
 		render(allCategories);
 	}
