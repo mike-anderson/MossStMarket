@@ -137,7 +137,7 @@ public class Application extends Controller {
         render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
     }
 
-	public static void add_booking(String stallNumber, String dateString) {
+	public static void add_booking(String stallNumber, String dateString, Long merchantID, String endDateString) {
 	
 		Date currentDate = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
@@ -175,6 +175,45 @@ public class Application extends Controller {
 		}
 		
 		render(stall,currentDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
+	}
+	
+	public static void create_booking(Int stallNumber, String startDateString, String endDateString, Long merchantID){
+		
+		validation.required(stallNumber);
+		validation.required(startDateString);
+		validation.required(endDateString);
+		validation.required(merchantID);
+		
+		if(validation.hasErrors()) {
+		   params.flash(); // add http parameters to the flash scope
+		   validation.keep(); // keep the errors for the next request
+		   add_booking();
+	   }
+		
+		Stall stall = Stall.getById(stallNumber);
+		Merchant merchant = Merchant.getById(merchantID);
+		Category cat = getById(stall.categoryid);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
+		Date startDate = sdf.parse(startDateString,pos);
+		pos.setIndex(0);
+		Date endDate = sdf.parse(endDateString,pos);
+		
+		if (startDate.getTime() =< stall.maintenanceDate.getTime() && endDate.getTime() >= stall.maintenanceDate.getTime()){
+			validation.addError('date_conflict',"The start and end date include the maintenance date");
+			params.flash();
+			validation.keep();
+			add_booking();
+		}
+		
+		int weekSpan = (int)((endDate.getTime() - startDate.getTime())/(1000*60*60*24*7)) + 1;
+		int bookingTotal = cat.price * weekSpan;
+		
+		Booking b = new Booking(stall.number,bookingTotal,startDate,endDate,merchant).save();
+		flash.success("Booking for %s Added!", merchant.name);
+		
+		index(startDateString);
 	}
 
 	public static void add_category(String category_name, String category_colour, String category_price)
