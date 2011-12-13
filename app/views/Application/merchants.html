@@ -1,12 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Merchants' /}
 #{set overhidden:true /}
-
-<<<<<<< HEAD
-<a href="/add_merchant" class="button topright">Add New Merchant</a>
-=======
+#{if flash.success}
+	<div id="immediate" class="popup">
+		<h2>Success</h2>
+		<p class="success">${flash.success}</p>
+	</div>
+#{/if}
+	
 <a href="create_merchant" class="button topright">Add New Merchant</a>
->>>>>>> dev-dan
+
 <div id="sidebar">
 <form action="/search" method="get" id="search">
 			<input type="text" name="q" class="search-box" value=""/>
@@ -25,7 +28,7 @@
 		<a href="edit_merchant" class="button">Edit</a>
 	</hgroup>
 	<p>
-	${merchant.address}</p>
+	${merchant.address.raw()}</p>
 	<p>
 	${merchant.phonenumber}</p>
 	<h3>Booking History</h3>
