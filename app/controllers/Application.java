@@ -182,7 +182,7 @@ public class Application extends Controller {
 	}
 
 <<<<<<< HEAD
-	// Work on progress edited by Robert
+	// Work on progress
 	public static void create_merchant(String newName, String newAddress, String newPhone, String newEmail, Long newCatID){ 
 		
 		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
