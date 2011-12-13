@@ -78,7 +78,6 @@ public class Application extends Controller {
 			temp = new Date(year - 1900, month - 1, day,12,00,00);
 		else
 			temp = new Date(year - 1900, month - 1, day,23,59,59);
-		System.out.println(temp);
 		return temp;
 	}
 	
@@ -179,7 +178,7 @@ public class Application extends Controller {
 
 
 	/* this is dan's attempt at things; might not actually work*/
-	public static void create_merchang(String newName, String, newAddress, String newPhone, String newEmail, Long newCatID)
+	public static void create_merchant(String newName, String newAddress, String newPhone, String newEmail, Long newCatID)
 	{ //shameless curly-brace same-line plug; fix me later
 		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
 
