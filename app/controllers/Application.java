@@ -176,15 +176,34 @@ public class Application extends Controller {
 		render(stall,currentDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
 	}
 
+	public static boolean add_merchant(String merchant_name, String merchant_category, String merchant_addr1, String merchant_addr2, String merchant_city, String merchant_province, String merchant_postal, String merchant_email, String merchant_telephone)
+	{
+		return false;
+	}
 
+<<<<<<< HEAD
 	// Work on progress edited by Robert
 	public static void create_merchant(String newName, String newAddress, String newPhone, String newEmail, Long newCatID){ 
 		
 		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
+=======
+	/* this is dan's attempt at things; might not actually work*/
+	public static void create_merchant()
+	{
+		List<Category> categoryList = Category.findAll();
+		Map<Long, Category> allCategories = new HashMap<Long,Category>();
+		for(Category cat : categoryList)
+		{
+			allCategories.put(cat.id,cat);
+		}
+		//Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
+>>>>>>> dev-dan
 
-		m.create();
+		//m.create();
+		
+		//System.out.println("CALLED");
 
-		render();
+		render(allCategories);
 	}
 	
 	public static void stalls(String dateString){
