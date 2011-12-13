@@ -2,24 +2,19 @@
 #{set title:'Create a New merchant' /}
 #{set overhidden:true /}
 <h2>Create a New Merchant</h2>
-#{form @Application.add_merchant(merchant_name, merchant_category, merchant_addr1, merchant_addr2, merchant_city, merchant_province, merchant_postal, merchant_email, merchant_telephone)}
+#{form @Application.add_category(category_name, category_colour, category_price)}
 <table>
     <tr>
-        <td><label for="ncat">New Category: </label></td>
-        <td><input type="text" name="merchant_name" id="mname" /> </td>
+        <td><label for="category_name">New Category: </label></td>
+        <td><input type="text" name="category_name" /> </td>
     </tr>
-    <tr>
-        <td><label for="cat">Category: </label></td>
-        <td>
-	    <select name="merchant_category" id="cGory">
-	    #{list items:allCategories, as: 'category'}
-	    <option value="${category.value.id}">${category.value.name}</option>
-	    #{/list}
-	    </select>
-	</td>
+	<tr>
+        <td><label for="category_colour">Colour: </label></td>
+        <td><input type="text" name="category_colour" /></td>
     </tr>
-        <td><label for="tele">Telephone: </label></td>
-        <td><input type="text" name="merchant_telephone" id="tele" /></td>
+	<tr>
+        <td><label for="category_price">Price: </label></td>
+        <td><input type="text" name="category_price" /></td>
     </tr>
     <tr>
         <td><input type="submit" value="Submit" /></td>

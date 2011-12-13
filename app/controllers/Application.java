@@ -81,7 +81,6 @@ public class Application extends Controller {
 		return temp;
 	}
 	
-	//dan's interpretation of the getBookings() render
 	public static Map<Integer,Booking> getBookingsByDate(Date currentDate)
 	{
 		List<Booking> allBookings = Booking.findAll();
@@ -99,6 +98,7 @@ public class Application extends Controller {
 	}
 
     public static void index(String dateString) {
+		
 		Date currentDate = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
 		ParsePosition pos = new ParsePosition(0);
@@ -176,11 +176,11 @@ public class Application extends Controller {
 		render(stall,currentDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
 	}
 
-	public static void add_category(String )
+	public static void add_category(String category_name, String category_colour, String category_price)
 	{
-		Category c = new Category( );
+		Category c = new Category(category_name, Integer.parseInt(category_colour), Integer.parseInt(category_price));
 		c.save();
-		index();
+		index(current_date());
 	}
 
 	public static void create_category(){ 
@@ -335,5 +335,17 @@ public class Application extends Controller {
 		
 		render(currentBookingList,allMerchants,allCategories,allStalls);
 	}
-
+	public static String current_date(){
+		
+		Date currentDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
+		Calendar startDate = Calendar.getInstance();
+		int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
+		startDate.add(Calendar.DATE, daysUntilSaturday);
+		currentDate = startDate.getTime();
+		String dateString = sdf.format(currentDate.getTime());
+		
+		return dateString;	
+	}
 }
