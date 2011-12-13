@@ -133,15 +133,27 @@ public class Application extends Controller {
 		render();
 	}
 
+	public static boolean add_merchant(String merchant_name, String merchant_category, String merchant_addr1, String merchant_addr2, String merchant_city, String merchant_province, String merchant_postal, String merchant_email, String merchant_telephone)
+	{
+		return false;
+	}
 
 	/* this is dan's attempt at things; might not actually work*/
-	public static void create_merchang(String newName, String, newAddress, String newPhone, String newEmail, Long newCatID)
-	{ //shameless curly-brace same-line plug; fix me later
-		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
+	public static void create_merchant()
+	{
+		List<Category> categoryList = Category.findAll();
+		Map<Long, Category> allCategories = new HashMap<Long,Category>();
+		for(Category cat : categoryList)
+		{
+			allCategories.put(cat.id,cat);
+		}
+		//Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
 
-		m.create();
+		//m.create();
+		
+		//System.out.println("CALLED");
 
-		render();
+		render(allCategories);
 	}
 	
 	public static void stalls(String date){
