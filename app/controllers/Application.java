@@ -177,9 +177,9 @@ public class Application extends Controller {
 	}
 
 
-	/* this is dan's attempt at things; might not actually work*/
-	public static void create_merchant(String newName, String newAddress, String newPhone, String newEmail, Long newCatID)
-	{ //shameless curly-brace same-line plug; fix me later
+	// Work on progress edited by Robert
+	public static void create_merchant(String newName, String newAddress, String newPhone, String newEmail, Long newCatID){ 
+		
 		Merchant m = new Merchant(newName, newCatID, newAddress, newPhone, newEmail);
 
 		m.create();
