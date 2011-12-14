@@ -39,7 +39,7 @@ public class Application extends Controller {
 	
 	@Before	
 	public static void initData(){
-        if(Category.count() == 0) {
+        	if(Category.count() == 0) {
 			Category produce = new Category("Produce",0xCAA3C2,250).save();
 			Category crafts = new Category("Crafts", 0xC0DCDD,300).save();
 			Category jewelry = new Category("Jewelry",0xFFFF9E,90).save();
@@ -265,6 +265,16 @@ public class Application extends Controller {
 		Category c = new Category(category_name, Integer.parseInt(category_colour,16), Integer.parseInt(category_price));
 		c.save();
 		index(current_date());
+	}
+
+	public static void change_stall_category(Long stallID, Long newCategoryID)
+	{
+		System.out.println("change_stall_category() still needs to be implemented");
+	}
+
+	public static void change_stall_nextMati(Long stallID, Date newMatTime)
+	{
+		System.out.println("change_stall_nextMati() still needs to be implemented");
 	}
 
 	public static void create_category(){ 
