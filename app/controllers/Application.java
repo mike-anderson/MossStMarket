@@ -46,11 +46,12 @@ public class Application extends Controller {
 			
 			Stall stall;
 			
+			Calendar last = Calendar.getInstance();
+			last.set(2011,1-1,14);
+			Calendar next = Calendar.getInstance();
+			next.set(2012,1-1,15);
+			
 			for (int i = 1; i <= 32; i++){
-				Calendar last = Calendar.getInstance();
-				last.set(2010,11-1,26);
-				Calendar next = Calendar.getInstance();
-				next.set(2011,12-1,3);
 				if (i <= 4) {
 					stall = new Stall(i,crafts.id,last.getTime(),next.getTime()).save();
 				} else {

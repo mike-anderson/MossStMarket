@@ -36,7 +36,9 @@
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
 		<h4>Next Maintenance Date:</h4>
-		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMMMM dd, yyyy') /}
+		<select>
+			<option disabled="disabled">${_stall.nextmaintenancedate.format('MMMMM dd, yyyy')}</option>
+		</select>
 	
 		<hr />
 		<a href="@{Application.view_stall}/${_stall.number}">Go to Stall History</a><br />
