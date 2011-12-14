@@ -15,19 +15,16 @@
 		</select>
 		#{/if}
 		#{else}
-		#{form _stall.changeCategory(stall_category)}
-		<select name="stall_category">
+		<select name="stall_category" class="categoryDropDown">
 		#{list items:_categories, as:'category'}
-			#{if category.value.id == _categories.get(_stall.categoryid).name}
-			<option value="${category.value.id}" selected="selected"> ${category.value.name}</option>
+			#{if category.value.id == _categories.get(_stall.categoryid).id}
+			<option value="changeCategory/${_stall.id}/${category.value.id}" selected="selected"> ${category.value.name}</option>
 			#{/if}
 			#{else}
-			<option value="${category.value.id}"> ${category.value.name}</option>			
+			<option value="changeCategory/${_stall.id}/${category.value.id}"> ${category.value.name}</option>			
 			#{/else}
 		#{/list}
 		</select>
-		<input type="submit" value="Change Category" />
-		#{/form}
 		#{/else}
 		
 		<a href="create_category">Add New Category</a>
@@ -46,7 +43,7 @@
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
 		<h4>Next Maintenance Date:</h4>
-		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMMMM dd, yyyy') /}
+		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMddyy'), url:"/changeMaintenanceDate/"+_stall.id /}
 	
 		<hr />
 		<a href="@{Application.view_stall}/${_stall.number}">Go to Stall History</a><br />

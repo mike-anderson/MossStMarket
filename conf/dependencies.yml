@@ -2,3 +2,4 @@
 
 require:
     - play
+    - play -> scaffold 0.1

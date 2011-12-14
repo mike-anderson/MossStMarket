@@ -19,11 +19,10 @@ public class Stall extends Model {
         this.lastmaintenancedate = _lastMaintenanceDate;
         this.nextmaintenancedate = _nextMaintenanceDate;
      }
-	 
-	 public Stall changeCategory(String _categoryID) {
-		this.categoryid = Long.parseLong(_categoryID);
+	public Stall updateMaintenance(Date newDate) {
+		this.nextmaintenancedate = newDate;
+		this.merge();
 		this.save();
 		return this;
 	}
 }
-

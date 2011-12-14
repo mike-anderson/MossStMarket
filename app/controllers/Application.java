@@ -54,7 +54,8 @@ public class Application extends Controller {
 				if (i <= 4) {
 					stall = new Stall(i,crafts.id,last.getTime(),next.getTime()).save();
 				} else {
-					stall = new Stall(i,produce.id,last.getTime(),next.getTime()).save();
+					stall = new Stall(i,produce.id,last.getTime(),next.getTime()).save();			
+
 				}
 				last.add(Calendar.DAY_OF_YEAR,7);
 				next.add(Calendar.DAY_OF_YEAR,7);
@@ -272,6 +273,30 @@ public class Application extends Controller {
 
 	public static void create_category(){ 
 		render();
+	}
+	
+	public static void changeCategory(String StallID, String catID) {
+		Stall s = Stall.findById(Long.parseLong(StallID));
+		s.categoryid = Long.parseLong(catID);
+		s = s.merge();
+		s.save();
+		index(current_date());
+	}
+	
+	public static void changeMaintenanceDate(String StallID, String maintainDate) {
+		Stall s = Stall.findById(Long.parseLong(StallID));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
+		Date next = sdf.parse(maintainDate, pos);
+		
+		s.nextmaintenancedate = next;
+		System.out.print(s.nextmaintenancedate);
+		System.out.print(next);
+		s = s.merge();
+        s.save();
+		
+		index(current_date());
 	}
 	
 	public static void add_merchant(String merchant_name, String merchant_category, String merchant_addr1, String merchant_addr2, String merchant_city, String merchant_province, String merchant_postal, String merchant_email, String merchant_telephone)
