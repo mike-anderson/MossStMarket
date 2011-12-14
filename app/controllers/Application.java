@@ -137,7 +137,7 @@ public class Application extends Controller {
         render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
     }
 
-	public static void add_booking(String stallNumber, String dateString, String endDateString, Long merchantID) {
+	public static void add_booking(String stallNumber, String dateString, String endDateString, String merchantID) {
 	
 		Date currentDate = null;
 		Date endDate = null;
@@ -185,21 +185,17 @@ public class Application extends Controller {
 		render(stall,currentDate,endDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
 	}
 	
-	public static void create_booking(String stallNumber, String startDateString, String endDateString, Long merchantID){
+	public static void create_booking(String stallNumber, String startDateString, String endDateString, String merchantID){
 		
-		validation.required(stallNumber);
-		validation.required(startDateString);
-		validation.required(endDateString);
-		validation.required(merchantID);
-		
-		if(validation.hasErrors()) {
-		   //params.flash(); // add http parameters to the flash scope
-		   validation.keep(); // keep the errors for the next request
-		   add_booking(stallNumber,startDateString,endDateString,merchantID);
+		if(merchantID == null) {
+		   	validation.addError("merchantID","A merchantID is required");
+			validation.keep();
+			//params.flash();
+			add_booking(stallNumber,startDateString,endDateString,merchantID);
 	   }
 		
 		Stall stall = Stall.find("number",Integer.parseInt(stallNumber)).first();
-		Merchant merchant = Merchant.findById(merchantID);
+		Merchant merchant = Merchant.findById(Long.parseLong(merchantID));
 		Category cat = Category.findById(stall.categoryid);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
@@ -234,7 +230,7 @@ public class Application extends Controller {
 	public static void resolve_booking_conflict(String stallNumber,String startDateString,String endDateString,String merchantID){
 		
 		Stall stall = Stall.find("number",Integer.parseInt(stallNumber)).first();
-		Merchant merchant = Merchant.findById(merchantID);
+		Merchant merchant = Merchant.findById(Integer.parseInt(merchantID));
 		Category cat = Category.findById(stall.categoryid);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");

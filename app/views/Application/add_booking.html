@@ -22,25 +22,25 @@
 #{/ifErrors}
 #{form @Application.create_booking(stallNumber,startDateString,endDateString,merchantID)}
 <input type="hidden" name="stallNumber" value="${stall.number}"/>
-<h2>Book Stall #1 (${cat.name})</h2>
+<h2>Book Stall #${stall.number} (${cat.name})</h2>
 
 <div class="half">
 
 	<h4>Merchant</h4>
-	<select>
+	<select name="merchantID">
 		#{list items:selectableMerchants, as:'merchant'}
-		<option name="merchantID" value="${merchant.id}">${merchant.name}</option>
+		<option value="${merchant.id}">${merchant.name}</option>
 		#{/list}
 	</select>
 	<p><a href="#?w=500" rel="popup_name" class="poplight">Add New Merchant</a></p>
 
 	<h4>Start Date</h4>
-		<select  name="startDateString" disabled="disabled">
+		<select name="startDateString">
 			<option value="${currentDate.format('MMddyy')}">${currentDate.format('MMMMM dd, yyyy')}</option>
 		</select>
 		
 	<h4>End Date</h4>
-		<select name="endDateString" disabled="disabled">
+		<select name="endDateString">
 			<option value="${endDate.format('MMddyy')}">${endDate.format('MMMMM dd, yyyy')}</option>
 		</select>
 	<hr />
@@ -53,7 +53,7 @@
 		</select>
 	<p>	
 	<input type="submit" value="Book Stall" />
-	</p>
+	<p>
 #{/form}
 </div>
 <div class="second half">
