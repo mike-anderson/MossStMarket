@@ -293,6 +293,9 @@ footer a {
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 }
+.popup ul {
+	margin: 0 0 0 20px;
+}
 img.btn_close {
 	float: right;
 	margin: -10px -10px 0 0;

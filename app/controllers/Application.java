@@ -285,6 +285,7 @@ public class Application extends Controller {
 		validation.required(merchant_postal);
 		validation.required(merchant_telephone);
 		validation.email(merchant_email);
+		validation.phone(merchant_telephone);
 
 		if(validation.hasErrors()) {
 		   params.flash(); // add http parameters to the flash scope
@@ -295,7 +296,6 @@ public class Application extends Controller {
 		if (!merchant_addr2.isEmpty()) {
 			address = address + merchant_addr2 + "<br />";
 		}
-		System.out.println("booop '" + merchant_addr2 + "'");
 		address = address + merchant_city + ", " + merchant_province + "<br />" + merchant_postal;
 		
 		Merchant m = new Merchant(merchant_name, Long.parseLong(merchant_category), address, merchant_telephone, merchant_email);

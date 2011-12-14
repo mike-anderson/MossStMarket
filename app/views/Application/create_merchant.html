@@ -2,16 +2,59 @@
 #{set title:'Merchants' /}
 #{set overhidden:true /}
 <h2>Create a New Merchant</h2>
+#{ifErrors}
+	<div id="immediate" class="popup">
+		<h2>Error</h2>
+		<p>You haven't filled in the form correctly. Please try again.</p>
+		<ul>
+		#{ifError 'merchant_name'}
+		  <li>
+			<em>Name: </em>#{error 'merchant_name' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'merchant_category'}
+		  <li>
+			<em>Category: </em>#{error 'merchant_category' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'merchant_addr1'}
+		  <li>
+			<em>Address Line 1: </em>#{error 'category_price' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'merchant_city'}
+		  <li>
+			<em>City: </em>#{error 'merchant_city' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'merchant_province'}
+		  <li>
+			<em>Province: </em>#{error 'merchant_province' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'merchant_postal'}
+		  <li>
+			<em>Postal Code: </em>#{error 'merchant_postal' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'merchant_email'}
+		  <li>
+			<em>Email: </em>#{error 'merchant_email' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'merchant_telephone'}
+		  <li>
+			<em>Telephone: </em>#{error 'merchant_telephone' /}
+		  </li>
+		#{/ifError}
+		</ul>
+	</div>
+#{/ifErrors}
+
 #{form @Application.add_merchant(merchant_name, merchant_category, merchant_addr1, merchant_addr2, merchant_city, merchant_province, merchant_postal, merchant_email, merchant_telephone)}
-    #{ifErrors}		
-		<div id="immediate" class="popup">
-			<h2>Ruh roh!</h2>
-			<p>You are missing a required field. Please double check your form entry.</p>
-		</div>
-    #{/ifErrors}
 <table>
     <tr>
-        <td><label for="mname">New Merchant Name: </label></td>
+        <td><label>New Merchant Name: </label></td>
         <td><input type="text" name="merchant_name" id="mname" /> </td>
     </tr>
     <tr>
