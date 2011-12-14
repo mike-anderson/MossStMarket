@@ -27,6 +27,9 @@
 					<td>${currentBookings.get(stall.key).startdate.format('MMMMM dd, yyyy')}</td>
 					<td>${currentBookings.get(stall.key).enddate.format('MMMMM dd, yyyy')}</td>
 				#{/if}
+				#{elseif currentDate.format('MMddyy') == stall.value.nextmaintenancedate.format('MMddyy')}
+					<td colspan="3"><em>Under Maintenance</em></td>
+				#{/elseif}
 				#{else}
 					<td colspan="3"></td>
 				#{/else}

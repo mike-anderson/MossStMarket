@@ -395,7 +395,7 @@ PAGE SPECIFIC STUFF
 }
 #overview td.maintenance {
 	border-style: solid;
-	border-color: #fff;
+	border-color: #fff !important;
 	background: #fcbe2f url('/public/images/maintenance.png') center center no-repeat;
 	color: #fff;
 }
@@ -405,6 +405,9 @@ PAGE SPECIFIC STUFF
 	position: relative;
 	top: -5px;
 	left: 0px;
+}
+#overview td.maintenance span.number {
+	color: #fff !important;
 }
 #overview td.active span.number {
 	color: #fff !important;

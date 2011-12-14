@@ -38,6 +38,10 @@
 				until <strong>${_booking.enddate.format('MMMMM dd, yyyy')}</strong><br />
 				<a href="@{Application.remove_booking(_booking.id,_currentDate.format('MMddyy'))}">Remove Booking</a><br />	
 			#{/if}
+			#{elseif _stall.nextmaintenancedate.format('MMddyy').equals(_currentDate.format('MMddyy'))}
+				This stall is <strong>Under Maintenance</strong><br />
+				<a href="/add_booking/${_stall.number}/${_dateString}">Add New Booking</a><br />
+			#{/elseif}
 			#{else}
 				This stall is <strong>Open</strong><br />
 				<a href="/add_booking/${_stall.number}/${_dateString}">Add New Booking</a><br />
