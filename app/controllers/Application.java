@@ -286,6 +286,13 @@ public class Application extends Controller {
 		flash.success("Booking for %s Added! Please book an alternate stall for this week", merchant.name);
 		index(maintenanceDateString);
 	}
+	
+	public static void remove_booking(Long bookingID,String currentDate){
+		Booking b = Booking.findById(bookingID);
+		b.delete();
+		flash.success("Booking removed!");
+		index(currentDate);
+	}
 
 	public static void add_category(String category_name, String category_colour, String category_price)
 	{
