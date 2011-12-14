@@ -1,6 +1,9 @@
 #{if _booking}
 <td class="active #{if (_stall.number > 16)}bottom#{/if}" style="background-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/if}
+#{elseif _stall.nextmaintenancedate.format('MMddyy').equals(_currentDate.format('MMddyy'))}
+<td class="maintenance #{if (_stall.number > 16)}bottom#{/if}" style="border-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
+#{/elseif}
 #{else}
 <td class=" #{if (_stall.number > 16)}bottom#{/if}" style="border-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/else}

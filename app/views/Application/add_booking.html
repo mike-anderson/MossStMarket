@@ -35,7 +35,7 @@
 		<option value="${merchant.id}">${merchant.name}</option>
 		#{/list}
 	</select>
-	<p><a href="#?w=500" rel="popup_name" class="poplight">Add New Merchant</a></p>
+	<p><a href="@{Application.create_merchant()}">Add New Merchant</a></p>
 
 	<h4>Start Date</h4>
 		<select name="startDateString">

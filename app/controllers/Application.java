@@ -47,9 +47,9 @@ public class Application extends Controller {
 			Stall stall;
 			
 			Calendar last = Calendar.getInstance();
-			last.set(2011,1-1,14);
+			last.set(2011,1-1,15);
 			Calendar next = Calendar.getInstance();
-			next.set(2012,1-1,15);
+			next.set(2012,1-1,14);
 			
 			for (int i = 1; i <= 32; i++){
 				if (i <= 4) {
