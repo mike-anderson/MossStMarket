@@ -204,6 +204,7 @@ public class Application extends Controller {
 		Date startDate = sdf.parse(startDateString,pos);
 		pos.setIndex(0);
 		Date endDate = sdf.parse(endDateString,pos);
+		Date currentDate = new Date();
 		
 		if (startDate.getTime() > endDate.getTime()){
 			validation.addError("date_range_conflict","The start and end date are not a valid range");
@@ -219,6 +220,32 @@ public class Application extends Controller {
 			add_booking(stallNumber,startDateString,endDateString,merchantID);
 		}
 		
+		List<Booking> bookings = Booking.find("byStallnumber",stall.number).fetch();
+		for(Booking booking : bookings)
+		{
+			if (booking.startdate.getTime() >= currentDate.getTime())
+			{
+				if (startDate.getTime() >= booking.startdate.getTime() && startDate.getTime() <= booking.enddate.getTime()){
+					validation.addError("stall_already_booked","The start and end date are not a valid range");
+					validation.keep();
+					//params.flash();
+					add_booking(stallNumber,startDateString,endDateString,merchantID);
+				}
+				if (endDate.getTime() >= booking.startdate.getTime() && endDate.getTime() <= booking.enddate.getTime()){
+					validation.addError("stall_already_booked","The start and end date are not a valid range");
+					validation.keep();
+					//params.flash();
+					add_booking(stallNumber,startDateString,endDateString,merchantID);
+				}
+				if (startDate.getTime() <= booking.startdate.getTime() && endDate.getTime() >= booking.enddate.getTime()){
+					validation.addError("stall_already_booked","The start and end date are not a valid range");
+					validation.keep();
+					//params.flash();
+					add_booking(stallNumber,startDateString,endDateString,merchantID);
+				}
+			}
+		}
+			
 		int weekSpan = (int)((endDate.getTime() - startDate.getTime())/(1000*60*60*24*7)) + 1;
 		int bookingTotal = cat.price * weekSpan;
 		

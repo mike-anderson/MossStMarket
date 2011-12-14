@@ -15,7 +15,10 @@
 			pick a different stall for just this date by clicking <a href="@{Application.resolve_booking_conflict(stall.number,currentDate.format('MMMMM dd, yyyy'),endDate.format('MMMMM dd, yyyy'),merchant.id)}">here</a>
 		#{/}
 		#{ifError 'date_range_conflict'}
-			<p>The dates range entered for the start and end date is not valid. </p>
+			<p>The date range entered for the start and end date is not valid. </p>
+		#{/ifError}
+		#{ifError 'stall_already_booked'}
+			<p>The date range entered for the start and end date conflict with another booking. </p>
 		#{/ifError}
 		<p>Please double check your form entry.</p>
 	</div>
