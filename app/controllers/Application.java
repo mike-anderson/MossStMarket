@@ -251,7 +251,7 @@ public class Application extends Controller {
 		flash.success("Booking for %s Added! Please book an alternate stall for this week", merchant.name);
 		index(maintenanceDateString);
 	}
-
+	
 	public static void add_category(String category_name, String category_colour, String category_price)
 	{
 		validation.required(category_name);

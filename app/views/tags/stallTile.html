@@ -7,19 +7,29 @@
 	<span class="number" style="color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">${_stall.number}</span>
 	<span class="tooltip">
 		<span></span><img class="close" src="@{'/public/images/close.png'}">
-		<h3>Stall #${_stall.number}</h3>
+		<h3>Stall ${_stall.number}</h3>
 		<h4>Category:</h4>
 		#{if _booking}
 		<select disabled="disabled">
 			<option value="${_categories.get(_stall.categoryid).name}">${_categories.get(_stall.categoryid).name}</option>
+		</select>
 		#{/if}
 		#{else}
-		<select>
-			#{list items:_categories, as:'cat'}
-			<option value="${cat.value.id}"> ${cat.value.name}</option>
-			#{/list}
-		#{/else}
+		#{form _stall.changeCategory(stall_category)}
+		<select name="stall_category">
+		#{list items:_categories, as:'category'}
+			#{if category.value.id == _categories.get(_stall.categoryid).name}
+			<option value="${category.value.id}" selected="selected"> ${category.value.name}</option>
+			#{/if}
+			#{else}
+			<option value="${category.value.id}"> ${category.value.name}</option>			
+			#{/else}
+		#{/list}
 		</select>
+		<input type="submit" value="Change Category" />
+		#{/form}
+		#{/else}
+		
 		<a href="create_category">Add New Category</a>
 		<hr />
 		<h4>Status:</h4>
