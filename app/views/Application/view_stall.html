@@ -6,17 +6,29 @@
 <a href="@{Application.add_booking}/${currentStall.number}" class="button topright">Book Stall</a></p>
 
 <h3>Category:</h3>
+#{if _booking}
 <select disabled="disabled">
 	<option value="${allCategories.get(currentStall.categoryid).name}">${allCategories.get(currentStall.categoryid).name}</option>
 </select>
+#{/if}
+#{else}
+<select name="stall_category" class="categoryDropDown">
+#{list items:allCategories, as:'category'}
+	#{if category.value.id == allCategories.get(currentStall.categoryid).id}
+	<option value="/changeCategory/${currentStall.id}/${category.value.id}" selected="selected"> ${category.value.name}</option>
+	#{/if}
+	#{else}
+	<option value="/changeCategory/${currentStall.id}/${category.value.id}"> ${category.value.name}</option>			
+	#{/else}
+#{/list}
+</select>
+#{/else}
 <a href="#">Add New Category</a>
 
 <h3>Maintenance</h3>
 Last Maintenance Date: ${currentStall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br>
 Next Maintenance Date: 
-<select disabled="disabled">
-	<option value="${currentStall.nextmaintenancedate.format('MMMMM dd, yyyy')}">${currentStall.nextmaintenancedate.format('MMMMM dd, yyyy')}</option>
-</select>
+#{datedropdown dates:dateRange, selectDate:currentStall.nextmaintenancedate.format('MMddyy'), url:"/changeMaintenanceDate/"+currentStall.id /}
 
 <h3>Bookings</h3>
 <table summary="Bookings">

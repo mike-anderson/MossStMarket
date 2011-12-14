@@ -62,8 +62,8 @@ public class Application extends Controller {
 				next.add(Calendar.DAY_OF_YEAR,7);
 			}
 			
-			Merchant jack = new Merchant("Jack Johnson", produce.id, "123 Fake st.<br />Victoria BC","jackj@uvic.ca","(250) 871-1902").save();
-			Merchant john = new Merchant("John Jackson", produce.id, "124 Fake st.<br />Victoria BC","johnj@uvic.ca","(250) 871-1902").save();
+			Merchant jack = new Merchant("Jack Johnson", produce.id, "123 Fake st.<br />Victoria BC","(250) 871-1902","jackj@uvic.ca").save();
+			Merchant john = new Merchant("John Jackson", produce.id, "124 Fake st.<br />Victoria BC","(250) 871-1902","johnj@uvic.ca").save();
 			Calendar cal = Calendar.getInstance();
 			cal.set(2011,12-1,3);
 			Booking b1 = new Booking(1,230,processedDate(2011,11,5,true),processedDate(2011,12,10,false),jack.id).save();
@@ -294,6 +294,13 @@ public class Application extends Controller {
 		flash.success("Booking removed!");
 		index(currentDate);
 	}
+	
+	public static void remove_merchant(String merchantID){
+		Merchant m = Merchant.findById(Long.parseLong(merchantID));
+		m.delete();
+		flash.success("Merchant removed!");
+		index(current_date());
+	}
 
 	public static void add_category(String category_name, String category_colour, String category_price)
 	{
@@ -311,16 +318,6 @@ public class Application extends Controller {
 		Category c = new Category(category_name, Integer.parseInt(category_colour,16), Integer.parseInt(category_price));
 		c.save();
 		index(current_date());
-	}
-
-	public static void change_stall_category(Long stallID, Long newCategoryID)
-	{
-		System.out.println("change_stall_category() still needs to be implemented");
-	}
-
-	public static void change_stall_nextMati(Long stallID, Date newMatTime)
-	{
-		System.out.println("change_stall_nextMati() still needs to be implemented");
 	}
 
 	public static void create_category(){ 
@@ -343,8 +340,6 @@ public class Application extends Controller {
 		Date next = sdf.parse(maintainDate, pos);
 		
 		s.nextmaintenancedate = next;
-		System.out.print(s.nextmaintenancedate);
-		System.out.print(next);
 		s = s.merge();
         s.save();
 		
@@ -391,6 +386,49 @@ public class Application extends Controller {
 
 		render(allCategories);
 	}
+	
+	public static void save_edited_merchant(String merchantID, String merchant_name, String merchant_category, String merchant_addr, String merchant_email, String merchant_telephone)
+	{
+	
+		validation.required(merchant_name);
+		validation.required(merchant_category);
+		validation.required(merchant_addr);
+		validation.required(merchant_telephone);
+		validation.email(merchant_email);
+		validation.phone(merchant_telephone);
+		
+		Merchant currentMerchant = Merchant.findById(Long.valueOf(merchantID));
+
+		if(validation.hasErrors()) {
+		   params.flash(); // add http parameters to the flash scope
+		   validation.keep(); // keep the errors for the next request
+		   create_merchant();
+		}		
+		
+		currentMerchant.name = merchant_name;
+		currentMerchant.categoryid = Long.parseLong(merchant_category);
+		currentMerchant.address = merchant_addr;
+		currentMerchant.phonenumber = merchant_telephone;
+		currentMerchant.email = merchant_email;
+		
+		currentMerchant = currentMerchant.merge();
+        currentMerchant.save();
+		
+        merchants();
+	}		
+	
+	public static void edit_merchant(String merchantID) {
+
+		List<Category> categoryList = Category.findAll();
+		Map<Long, Category> allCategories = new HashMap<Long,Category>();
+		for(Category cat : categoryList){
+			allCategories.put(cat.id,cat);
+		}
+		
+		Merchant currentMerchant = Merchant.findById(Long.valueOf(merchantID));
+		
+        render(currentMerchant,allCategories);
+	}		
 	
 	public static void stalls(String dateString){
 		Date currentDate = null;

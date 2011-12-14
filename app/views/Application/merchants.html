@@ -21,10 +21,10 @@
 	<div class="merchant" id="${merchant.id}">
 	<hgroup>
 		<h2>${merchant.name}</h2>
-		<a href="edit_merchant" class="button">Edit</a>
+		<a href="edit_merchant/${merchant.id}" class="button">Edit</a>
 	</hgroup>
-	<p>
-	${merchant.address.raw()}</p>
+	<p><em>Category:</em> ${allCategories.get(merchant.categoryid).name}</p>
+	<p>${merchant.address.raw()}</p>
 	<p>
 	${merchant.phonenumber}</p>
 	<h3>Booking History</h3>
