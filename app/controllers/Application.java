@@ -137,19 +137,27 @@ public class Application extends Controller {
         render(allStalls,allCategories,currentBookings,merchants,currentDate,dateString);
     }
 
-	public static void add_booking(String stallNumber, String dateString, Long merchantID, String endDateString) {
+	public static void add_booking(String stallNumber, String dateString, String endDateString, Long merchantID) {
 	
 		Date currentDate = null;
+		Date endDate = null;
+		Calendar startDate = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
 		ParsePosition pos = new ParsePosition(0);
 		try{
 			currentDate = sdf.parse(dateString,pos);
+			startDate.setTime(currentDate);
 		}catch(NullPointerException p){
-			Calendar startDate = Calendar.getInstance();
 			int daysUntilSaturday = 7 - startDate.get(Calendar.DAY_OF_WEEK);
 			startDate.add(Calendar.DATE, daysUntilSaturday);
 			currentDate = startDate.getTime();
-			dateString = sdf.format(currentDate.getTime());
+		}
+		pos.setIndex(0);
+		try{
+			currentDate = sdf.parse(endDateString,pos);
+		}
+		catch(NullPointerException p){
+			endDate = startDate.getTime();
 		}
 		
 		Stall stall = Stall.find("number",Integer.parseInt(stallNumber)).first();
@@ -174,10 +182,10 @@ public class Application extends Controller {
 			}
 		}
 		
-		render(stall,currentDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
+		render(stall,currentDate,endDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
 	}
 	
-	public static void create_booking(Int stallNumber, String startDateString, String endDateString, Long merchantID){
+	public static void create_booking(String stallNumber, String startDateString, String endDateString, Long merchantID){
 		
 		validation.required(stallNumber);
 		validation.required(startDateString);
@@ -185,14 +193,14 @@ public class Application extends Controller {
 		validation.required(merchantID);
 		
 		if(validation.hasErrors()) {
-		   params.flash(); // add http parameters to the flash scope
+		   //params.flash(); // add http parameters to the flash scope
 		   validation.keep(); // keep the errors for the next request
-		   add_booking();
+		   add_booking(stallNumber,startDateString,endDateString,merchantID);
 	   }
 		
-		Stall stall = Stall.getById(stallNumber);
-		Merchant merchant = Merchant.getById(merchantID);
-		Category cat = getById(stall.categoryid);
+		Stall stall = Stall.find("number",Integer.parseInt(stallNumber)).first();
+		Merchant merchant = Merchant.findById(merchantID);
+		Category cat = Category.findById(stall.categoryid);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
 		ParsePosition pos = new ParsePosition(0);
@@ -200,20 +208,48 @@ public class Application extends Controller {
 		pos.setIndex(0);
 		Date endDate = sdf.parse(endDateString,pos);
 		
-		if (startDate.getTime() =< stall.maintenanceDate.getTime() && endDate.getTime() >= stall.maintenanceDate.getTime()){
-			validation.addError('date_conflict',"The start and end date include the maintenance date");
-			params.flash();
+		if (startDate.getTime() > endDate.getTime()){
+			validation.addError("date_range_conflict","The start and end date are not a valid range");
 			validation.keep();
-			add_booking();
+			//params.flash();
+			add_booking(stallNumber,startDateString,endDateString,merchantID);
+		}
+		
+		if (startDate.getTime() <= stall.nextmaintenancedate.getTime() && endDate.getTime() >= stall.nextmaintenancedate.getTime()){
+			validation.addError("maintenance_date_conflict","The start and end date include the maintenance date");
+			validation.keep();
+			//params.flash();
+			add_booking(stallNumber,startDateString,endDateString,merchantID);
 		}
 		
 		int weekSpan = (int)((endDate.getTime() - startDate.getTime())/(1000*60*60*24*7)) + 1;
 		int bookingTotal = cat.price * weekSpan;
 		
-		Booking b = new Booking(stall.number,bookingTotal,startDate,endDate,merchant).save();
+		Booking b = new Booking(stall.number,bookingTotal,startDate,endDate,merchant.id).save();
 		flash.success("Booking for %s Added!", merchant.name);
 		
 		index(startDateString);
+	}
+	
+	public static void resolve_booking_conflict(String stallNumber,String startDateString,String endDateString,String merchantID){
+		
+		Stall stall = Stall.find("number",Integer.parseInt(stallNumber)).first();
+		Merchant merchant = Merchant.findById(merchantID);
+		Category cat = Category.findById(stall.categoryid);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
+		Date startDate = sdf.parse(startDateString,pos);
+		pos.setIndex(0);
+		Date endDate = sdf.parse(endDateString,pos);
+		
+		
+		//TODO:Split the dates
+		
+		String maintenanceDateString = sdf.format(stall.nextmaintenancedate.getTime());
+		
+		flash.success("Booking for %s Added! Please book an alternate stall for this week", merchant.name);
+		index(maintenanceDateString);
 	}
 
 	public static void add_category(String category_name, String category_colour, String category_price)
