@@ -4,8 +4,25 @@
 <h2>Create New Category</h2>
 #{ifErrors}
 	<div id="immediate" class="popup">
-		<h2>Ruh roh!</h2>
-		<p>You are missing a required field. Please double check your form entry.</p>
+		<h2>Error</h2>
+		<p>You haven't filled in the form correctly. Please try again.</p>
+		<ul>
+		#{ifError 'category_name'}
+		  <li>
+			<em>Category Name: </em>#{error 'category_name' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'category_colour'}
+		  <li>
+			<em>Colour: </em>#{error 'category_colour' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'category_price'}
+		  <li>
+			<em>Price: </em>#{error 'category_price' /}
+		  </li>
+		#{/ifError}
+		</ul>
 	</div>
 #{/ifErrors}
 

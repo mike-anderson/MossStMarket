@@ -81,4 +81,7 @@
 		$(".dateDropdown").change(function(e){
 			window.location = $(this).val();
 		});
+		$(".categoryDropDown").change(function(e){
+			window.location = $(this).val();
+		});
 	});

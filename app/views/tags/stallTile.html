@@ -7,19 +7,26 @@
 	<span class="number" style="color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">${_stall.number}</span>
 	<span class="tooltip">
 		<span></span><img class="close" src="@{'/public/images/close.png'}">
-		<h3>Stall #${_stall.number}</h3>
+		<h3>Stall ${_stall.number}</h3>
 		<h4>Category:</h4>
 		#{if _booking}
 		<select disabled="disabled">
 			<option value="${_categories.get(_stall.categoryid).name}">${_categories.get(_stall.categoryid).name}</option>
+		</select>
 		#{/if}
 		#{else}
-		<select>
-			#{list items:_categories, as:'cat'}
-			<option value="${cat.value.id}"> ${cat.value.name}</option>
-			#{/list}
-		#{/else}
+		<select name="stall_category" class="categoryDropDown">
+		#{list items:_categories, as:'category'}
+			#{if category.value.id == _categories.get(_stall.categoryid).id}
+			<option value="changeCategory/${_stall.id}/${category.value.id}" selected="selected"> ${category.value.name}</option>
+			#{/if}
+			#{else}
+			<option value="changeCategory/${_stall.id}/${category.value.id}"> ${category.value.name}</option>			
+			#{/else}
+		#{/list}
 		</select>
+		#{/else}
+		
 		<a href="create_category">Add New Category</a>
 		<hr />
 		<h4>Status:</h4>
@@ -36,9 +43,7 @@
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
 		<h4>Next Maintenance Date:</h4>
-		<select>
-			<option disabled="disabled">${_stall.nextmaintenancedate.format('MMMMM dd, yyyy')}</option>
-		</select>
+		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMddyy'), url:"/changeMaintenanceDate/"+_stall.id /}
 	
 		<hr />
 		<a href="@{Application.view_stall}/${_stall.number}">Go to Stall History</a><br />
