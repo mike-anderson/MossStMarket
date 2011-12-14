@@ -55,7 +55,8 @@ public class Application extends Controller {
 				if (i <= 4) {
 					stall = new Stall(i,crafts.id,last.getTime(),next.getTime()).save();
 				} else {
-					stall = new Stall(i,produce.id,last.getTime(),next.getTime()).save();
+					stall = new Stall(i,produce.id,last.getTime(),next.getTime()).save();			
+
 				}
 				last.add(Calendar.DAY_OF_YEAR,7);
 				next.add(Calendar.DAY_OF_YEAR,7);
@@ -275,7 +276,7 @@ public class Application extends Controller {
 		flash.success("Booking for %s Added! Please book an alternate stall for this week", merchant.name);
 		index(maintenanceDateString);
 	}
-
+	
 	public static void add_category(String category_name, String category_colour, String category_price)
 	{
 		validation.required(category_name);
@@ -308,6 +309,30 @@ public class Application extends Controller {
 		render();
 	}
 	
+	public static void changeCategory(String StallID, String catID) {
+		Stall s = Stall.findById(Long.parseLong(StallID));
+		s.categoryid = Long.parseLong(catID);
+		s = s.merge();
+		s.save();
+		index(current_date());
+	}
+	
+	public static void changeMaintenanceDate(String StallID, String maintainDate) {
+		Stall s = Stall.findById(Long.parseLong(StallID));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
+		ParsePosition pos = new ParsePosition(0);
+		Date next = sdf.parse(maintainDate, pos);
+		
+		s.nextmaintenancedate = next;
+		System.out.print(s.nextmaintenancedate);
+		System.out.print(next);
+		s = s.merge();
+        s.save();
+		
+		index(current_date());
+	}
+	
 	public static void add_merchant(String merchant_name, String merchant_category, String merchant_addr1, String merchant_addr2, String merchant_city, String merchant_province, String merchant_postal, String merchant_email, String merchant_telephone)
 	{
 	
@@ -319,6 +344,7 @@ public class Application extends Controller {
 		validation.required(merchant_postal);
 		validation.required(merchant_telephone);
 		validation.email(merchant_email);
+		validation.phone(merchant_telephone);
 
 		if(validation.hasErrors()) {
 		   params.flash(); // add http parameters to the flash scope
@@ -329,7 +355,6 @@ public class Application extends Controller {
 		if (!merchant_addr2.isEmpty()) {
 			address = address + merchant_addr2 + "<br />";
 		}
-		System.out.println("booop '" + merchant_addr2 + "'");
 		address = address + merchant_city + ", " + merchant_province + "<br />" + merchant_postal;
 		
 		Merchant m = new Merchant(merchant_name, Long.parseLong(merchant_category), address, merchant_telephone, merchant_email);
