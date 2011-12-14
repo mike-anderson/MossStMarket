@@ -9,7 +9,8 @@ GET     /stalls/{dateString}                           	Application.stalls
 GET     /finance/{dateString}                          	Application.finance
 GET     /view_stall/{stallNumber}                       Application.view_stall
 GET     /add_booking/{stallNumber}/{dateString}         Application.add_booking
-GET     /merchants/{merchantID}                       Application.merchants
+GET     /add_booking/{stallNumber}/{dateString}         Application.add_booking
+GET     /changeMaintenanceDate/{StallID}/{maintainDate}                       Application.changeMaintenanceDate
 
 
 # Ignore favicon requests

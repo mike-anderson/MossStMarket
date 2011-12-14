@@ -15,17 +15,17 @@
 		</select>
 		#{/if}
 		#{else}
-		#{form _stall.changeCategory(stall_category)}
-		<select name="stall_category">
+		#{form @Application.changeCategory(_stall, stall_category)}
+		#{select 'stall_category'}
 		#{list items:_categories, as:'category'}
-			#{if category.value.id == _categories.get(_stall.categoryid).name}
+			#{if category.value.id == _categories.get(_stall.categoryid).id}
 			<option value="${category.value.id}" selected="selected"> ${category.value.name}</option>
 			#{/if}
 			#{else}
 			<option value="${category.value.id}"> ${category.value.name}</option>			
 			#{/else}
 		#{/list}
-		</select>
+		#{/select}
 		<input type="submit" value="Change Category" />
 		#{/form}
 		#{/else}
@@ -46,7 +46,7 @@
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
 		<h4>Next Maintenance Date:</h4>
-		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMMMM dd, yyyy') /}
+		#{datedropdown dates:_dates, selectDate:_stall.nextmaintenancedate.format('MMMMM dd, yyyy'), url:"/changeMaintenanceDate/"+_stall.id /}
 	
 		<hr />
 		<a href="@{Application.view_stall}/${_stall.number}">Go to Stall History</a><br />
