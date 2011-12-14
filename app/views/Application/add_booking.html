@@ -9,10 +9,11 @@
 			<p>You are missing a valid merchant.</p>
 		#{/ifError}
 		#{ifError 'maintenance_date_conflict'}
-			<p>This stall is booked for yearly maintenance on ${stall.maintenancedate.format('MMMMM dd, yyy')}.<br>
+			<p>This stall is booked for yearly maintenance on ${stall.nextmaintenancedate.format('MMMMM dd, yyy')}.<br>
 			Either return and change the date range or maintenance date<br>
 			OR<br>
-			pick a different stall for just this date by clicking <a href="@{Application.resolve_booking_conflict(stall.number,currentDate.format('MMMMM dd, yyyy'),endDate.format('MMMMM dd, yyyy'),merchant.id)}">here</a>
+			pick a different stall for just this date by clicking 
+			<a href="@{Application.resolve_booking_conflict(stall.number,currentDate.format('MMddyy'),endDateString,merchantID)}">here</a>
 		#{/}
 		#{ifError 'date_range_conflict'}
 			<p>The date range entered for the start and end date is not valid. </p>
@@ -35,16 +36,30 @@
 		<option value="${merchant.id}">${merchant.name}</option>
 		#{/list}
 	</select>
-	<p><a href="#?w=500" rel="popup_name" class="poplight">Add New Merchant</a></p>
+	<p><a href="@{Application.create_merchant()}">Add New Merchant</a></p>
 
 	<h4>Start Date</h4>
 		<select name="startDateString">
-			<option value="${currentDate.format('MMddyy')}">${currentDate.format('MMMMM dd, yyyy')}</option>
+			#{list items:listRange, as:'date'}
+			#{if date.format('MMddyy').equals(currentDate.format('MMddyy'))}
+			<option value="${date.format('MMddyy')}" selected="selected">${date.format('MMMMM dd, yyyy')}</option>
+			#{/if}
+			#{else}
+			<option value="${date.format('MMddyy')}">${date.format('MMMMM dd, yyyy')}</option>
+			#{/else}
+			#{/list}
 		</select>
 		
 	<h4>End Date</h4>
 		<select name="endDateString">
-			<option value="${endDate.format('MMddyy')}">${endDate.format('MMMMM dd, yyyy')}</option>
+			#{list items:listRange, as:'date'}
+			#{if date.format('MMddyy').equals(endDate.format('MMddyy'))}
+			<option value="${date.format('MMddyy')}" selected="selected">${date.format('MMMMM dd, yyyy')}</option>
+			#{/if}
+			#{else}
+			<option value="${date.format('MMddyy')}">${date.format('MMMMM dd, yyyy')}</option>
+			#{/else}
+			#{/list}
 		</select>
 	<hr />
 	<h4>Last Maintenance Date</h4>

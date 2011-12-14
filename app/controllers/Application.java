@@ -47,9 +47,9 @@ public class Application extends Controller {
 			Stall stall;
 			
 			Calendar last = Calendar.getInstance();
-			last.set(2011,1-1,14);
+			last.set(2011,1-1,15);
 			Calendar next = Calendar.getInstance();
-			next.set(2012,1-1,15);
+			next.set(2012,1-1,14);
 			
 			for (int i = 1; i <= 32; i++){
 				if (i <= 4) {
@@ -156,7 +156,7 @@ public class Application extends Controller {
 		}
 		pos.setIndex(0);
 		try{
-			currentDate = sdf.parse(endDateString,pos);
+			endDate = sdf.parse(endDateString,pos);
 		}
 		catch(NullPointerException p){
 			endDate = startDate.getTime();
@@ -184,7 +184,18 @@ public class Application extends Controller {
 			}
 		}
 		
-		render(stall,currentDate,endDate,merchants,cat,selectableMerchants,pastBookings,futureBookings);
+		Calendar listStartDate = Calendar.getInstance();
+		int daysUntilSaturday = 7 - listStartDate.get(Calendar.DAY_OF_WEEK);
+		listStartDate.add(Calendar.DATE, daysUntilSaturday);
+		
+		List<Date> listRange = new ArrayList<Date>();
+		
+		for (int i=1; i <= 52; i++) {
+			listRange.add(listStartDate.getTime());
+			listStartDate.add(Calendar.DATE,7);
+		}
+		
+		render(stall,currentDate,endDate,merchants,cat,selectableMerchants,pastBookings,futureBookings,listRange);
 	}
 	
 	public static void create_booking(String stallNumber, String startDateString, String endDateString, String merchantID){
@@ -217,7 +228,7 @@ public class Application extends Controller {
 		if (startDate.getTime() <= stall.nextmaintenancedate.getTime() && endDate.getTime() >= stall.nextmaintenancedate.getTime()){
 			validation.addError("maintenance_date_conflict","The start and end date include the maintenance date");
 			validation.keep();
-			//params.flash();
+			params.flash();
 			add_booking(stallNumber,startDateString,endDateString,merchantID);
 		}
 		
@@ -256,10 +267,10 @@ public class Application extends Controller {
 		index(startDateString);
 	}
 	
-	public static void resolve_booking_conflict(String stallNumber,String startDateString,String endDateString,String merchantID){
+	public static void resolve_booking_conflict(String stallNumber,String startDateString,String endDateString, String merchantID){
 		
 		Stall stall = Stall.find("number",Integer.parseInt(stallNumber)).first();
-		Merchant merchant = Merchant.findById(Integer.parseInt(merchantID));
+		Merchant merchant = Merchant.findById(Long.parseLong(merchantID));
 		Category cat = Category.findById(stall.categoryid);
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("MMddyy");
@@ -277,6 +288,13 @@ public class Application extends Controller {
 		index(maintenanceDateString);
 	}
 	
+	public static void remove_booking(Long bookingID,String currentDate){
+		Booking b = Booking.findById(bookingID);
+		b.delete();
+		flash.success("Booking removed!");
+		index(currentDate);
+	}
+
 	public static void add_category(String category_name, String category_colour, String category_price)
 	{
 		validation.required(category_name);

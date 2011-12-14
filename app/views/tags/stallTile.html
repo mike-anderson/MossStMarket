@@ -1,6 +1,9 @@
 #{if _booking}
 <td class="active #{if (_stall.number > 16)}bottom#{/if}" style="background-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/if}
+#{elseif _stall.nextmaintenancedate.format('MMddyy').equals(_currentDate.format('MMddyy'))}
+<td class="maintenance #{if (_stall.number > 16)}bottom#{/if}" style="border-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
+#{/elseif}
 #{else}
 <td class=" #{if (_stall.number > 16)}bottom#{/if}" style="border-color: #${Integer.toHexString(_categories.get(_stall.categoryid).colour)}">
 #{/else}
@@ -33,12 +36,12 @@
 			#{if _booking}
 				Booked by <strong>${_merchants.get(_booking.merchantid).name}</strong><br />
 				until <strong>${_booking.enddate.format('MMMMM dd, yyyy')}</strong><br />
-				<a href="add_booking">Edit Booking</a><br />	
+				<a href="@{Application.remove_booking(_booking.id,_currentDate.format('MMddyy'))}">Remove Booking</a><br />	
 			#{/if}
 			#{else}
 				This stall is <strong>Open</strong><br />
-			#{/else}
 				<a href="/add_booking/${_stall.number}/${_dateString}">Add New Booking</a><br />
+			#{/else}
 		<hr />
 		<h4>Last Maintenance Date:</h4>
 		${_stall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br />
