@@ -1,45 +1,68 @@
 #{extends 'main.html' /}
 #{set title:'Stalls' /}
 #{set overhidden:true /}
-		
-<h2>Book Stall #1 (Produce)</h2>
-<a href="" class="button topright">Book Stall</a></p>
+
+#{ifErrors}
+	<div id="immediate" class="popup">
+		<h2>Ruh roh!</h2>
+		#{ifError 'merchantID'}
+			<p>You are missing a valid merchant.</p>
+		#{/ifError}
+		#{ifError 'maintenance_date_conflict'}
+			<p>This stall is booked for yearly maintenance on ${stall.maintenancedate.format('MMMMM dd, yyy')}.<br>
+			Either return and change the date range or maintenance date<br>
+			OR<br>
+			pick a different stall for just this date by clicking <a href="@{Application.resolve_booking_conflict(stall.number,currentDate.format('MMMMM dd, yyyy'),endDate.format('MMMMM dd, yyyy'),merchant.id)}">here</a>
+		#{/}
+		#{ifError 'date_range_conflict'}
+			<p>The dates range entered for the start and end date is not valid. </p>
+		#{/ifError}
+		<p>Please double check your form entry.</p>
+	</div>
+#{/ifErrors}
+#{form @Application.create_booking(stallNumber,startDateString,endDateString,merchantID)}
+<input type="hidden" name="stallNumber" value="${stall.number}"/>
+<h2>Book Stall #1 (${cat.name})</h2>
 
 <div class="half">
 
 	<h4>Merchant</h4>
 	<select>
-		<option value="November 5">Heather Macphail</option>
-		<option value="November 12">Greg Medhurst</option>
+		#{list items:selectableMerchants, as:'merchant'}
+		<option name="merchantID" value="${merchant.id}">${merchant.name}</option>
+		#{/list}
 	</select>
 	<p><a href="#?w=500" rel="popup_name" class="poplight">Add New Merchant</a></p>
 
 	<h4>Start Date</h4>
-		<select>
-			<option value="November 5">November 5</option>
-			<option value="November 12">November 12</option>
+		<select  name="startDateString" disabled="disabled">
+			<option value="${currentDate.format('MMddyy')}">${currentDate.format('MMMMM dd, yyyy')}</option>
 		</select>
 		
 	<h4>End Date</h4>
-		<select>
-			<option value="November 5">November 5</option>
-			<option value="November 12">November 12</option>
+		<select name="endDateString" disabled="disabled">
+			<option value="${endDate.format('MMddyy')}">${endDate.format('MMMMM dd, yyyy')}</option>
 		</select>
 	<hr />
 	<h4>Last Maintenance Date</h4>
 	Dec 18, 2010
 
 	<h4>Next Maintenance Date</h4>
-		<select>
-			<option value="November 5">November 5</option>
-			<option value="November 12">November 12</option>
+		<select disabled="disabled">
+			<option value="">${stall.nextmaintenancedate.format('MMMMM dd, yyyy')}</option>
 		</select>
+	<p>	
+	<input type="submit" value="Book Stall" />
+	</p>
+#{/form}
 </div>
 <div class="second half">
 
 	<h4>Upcoming Bookings</h4>
+	#{if futureBookings.isEmpty()}
 	<p>None</p>
-	<h4>Past Bookings</h4>
+	#{/if}
+	#{else}
 	<table summary="Bookings">
     <thead>
     	<tr>
@@ -49,24 +72,40 @@
        </tr>
     </thead>
     <tbody>
+		#{list items:futureBookings, as:'booking'}
     	<tr>
-        	<td>Stephen C. Cox</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-        <tr>
-        	<td>Josephin Tan</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-        <tr>
-        	<td>Joyce Ming</td>
-			<td>November 19, 2011</td>
-			<td>November 19, 2011</td>
-        </tr>
-    </tbody>
-</table>
-
+			<td>${merchants.get(booking.merchantid).name}</td>
+			<td>${booking.startdate.format('MMMMM dd, yyyy')}</td>
+			<td>${booking.enddate.format('MMMMM dd, yyyy')}</td>
+		</tr>
+		#{/list}
+	</tbody>
+	</table>
+	#{/else}
+	<h4>Past Bookings</h4>
+	#{if pastBookings.isEmpty()}
+	<p>None</p>
+	#{/if}
+	#{else}
+	<table summary="Bookings">
+    <thead>
+    	<tr>
+			<th scope="col">Vendor</th>
+            <th scope="col">Start Date</th>
+             <th scope="col">End Date</th>
+       </tr>
+    </thead>
+    <tbody>
+		#{list items:pastBookings, as:'booking'}
+    	<tr>
+			<td>${merchants.get(booking.merchantid).name}</td>
+			<td>${booking.startdate.format('MMMMM dd, yyyy')}</td>
+			<td>${booking.enddate.format('MMMMM dd, yyyy')}</td>
+		</tr>
+		#{/list}
+	</tbody>
+	</table>
+	#{/else}
 </div>
 <div id="popup_name" class="popup">
     <h2>Error</h2>

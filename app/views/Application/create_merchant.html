@@ -1,0 +1,74 @@
+#{extends 'main.html' /}
+#{set title:'Merchants' /}
+#{set overhidden:true /}
+<h2>Create a New Merchant</h2>
+#{form @Application.add_merchant(merchant_name, merchant_category, merchant_addr1, merchant_addr2, merchant_city, merchant_province, merchant_postal, merchant_email, merchant_telephone)}
+    #{ifErrors}		
+		<div id="immediate" class="popup">
+			<h2>Ruh roh!</h2>
+			<p>You are missing a required field. Please double check your form entry.</p>
+		</div>
+    #{/ifErrors}
+<table>
+    <tr>
+        <td><label for="mname">New Merchant Name: </label></td>
+        <td><input type="text" name="merchant_name" id="mname" /> </td>
+    </tr>
+    <tr>
+        <td><label for="cGory">Category: </label></td>
+        <td>
+	    <select name="merchant_category" id="cGory">
+	    #{list items:allCategories, as: 'category'}
+	    <option value="${category.value.id}">${category.value.name}</option>
+	    #{/list}
+	    </select>
+	</td>
+    </tr>
+    <tr>
+        <td><label for="aLine1">Address Line 1: </label></td>
+        <td><input type="text" name="merchant_addr1" id="aLine1" /></td>
+    </tr>
+    <tr>
+        <td><label for="aLine2">Address Line 2: </label></td>
+        <td><input type="text" name="merchant_addr2" id="aLine2" /></td>
+    </tr>
+    <tr>
+        <td><label for="city">City: </label></td>
+        <td><input type="text" name="merchant_city" id="city" /></td>
+    </tr>
+    <tr>
+        <td><label for="prov">Province: </label></td>
+        <td>
+		<select name="merchant_province" id="prov">
+			<option value="AB">AB</option>
+			<option value="BC">BC</option>
+			<option value="MB">MB</option>
+			<option value="NB">NB</option>
+			<option value="NL">NL</option>
+			<option value="NS">NS</option>
+			<option value="NT">NT</option>
+			<option value="NU">NU</option>
+			<option value="ON">ON</option>
+			<option value="PE">PE</option>
+			<option value="QC">QC</option>
+			<option value="SK">SK</option>
+			<option value="YT">YT</option>
+	    </select></td>
+    </tr>
+    <tr>
+        <td><label for="pCode">Postal Code: </label></td>
+        <td><input type="text" name="merchant_postal" id="pCode" /></td>
+    </tr>
+    <tr>
+        <td><label for="eml">E-mail: </label></td>
+        <td><input type="text" name="merchant_email" id="eml" /></td>
+    </tr>
+    <tr>
+        <td><label for="tele">Telephone: </label></td>
+        <td><input type="text" name="merchant_telephone" id="tele" /></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Submit" /></td>
+    </tr>
+</table>
+#{/form}

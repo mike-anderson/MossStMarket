@@ -7,8 +7,8 @@ import models.Category;
 
 @Entity
 public class Category extends Model {
-     
-     public String      name;
+
+     public String      name;	 
      public Integer	    colour;
 	 public Integer		price;
     

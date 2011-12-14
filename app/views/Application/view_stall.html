@@ -11,6 +11,13 @@
 </select>
 <a href="#">Add New Category</a>
 
+<h3>Maintenance</h3>
+Last Maintenance Date: ${currentStall.lastmaintenancedate.format('MMMMM dd, yyyy')}<br>
+Next Maintenance Date: 
+<select disabled="disabled">
+	<option value="${currentStall.nextmaintenancedate.format('MMMMM dd, yyyy')}">${currentStall.nextmaintenancedate.format('MMMMM dd, yyyy')}</option>
+</select>
+
 <h3>Bookings</h3>
 <table summary="Bookings">
     <thead>
