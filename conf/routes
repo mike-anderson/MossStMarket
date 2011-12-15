@@ -3,7 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
+GET     /                                      			Application.index
+GET     /index/{dateString}                           	Application.index
+GET     /stalls/{dateString}                           	Application.stalls
+GET     /finance/{dateString}                          	Application.finance
+GET     /view_stall/{stallNumber}                       Application.view_stall
+GET     /add_booking/{stallNumber}/{dateString}         Application.add_booking
+GET     /add_booking/{stallNumber}/{dateString}         Application.add_booking
+GET     /changeMaintenanceDate/{StallID}/{maintainDate} Application.changeMaintenanceDate
+GET     /changeCategory/{StallID}/{catID}               Application.changeCategory
+GET     /edit_merchant/{merchantID}              		Application.edit_merchant
+GET     /remove_merchant/{merchantID}              		Application.remove_merchant
 
 
 # Ignore favicon requests

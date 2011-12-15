@@ -1,11 +1,9 @@
 #{extends 'main.html' /}
 #{set title:'Finance' /}
+<a href="javascript:window.print()" class="button topright">Print</a>
 <hgroup>
 	<h2>Finances for</h2>
-	<select>
-		<option value="November 5">November 5</option>
-		<option value="November 12">November 12</option>
-	</select>
+	#{datedropdown dates:dateRange, selectDate:dateString,url:"/finance"/}
 </hgroup>
 <table summary="Invoices">
     <thead>
@@ -15,11 +13,22 @@
         </tr>
     </thead>
     <tbody>
-	#{list items:currentBookingList, as:'booking'}
+	#{list items:currentBookings, as:'booking'}
     	<tr>
-        	<td>${merchants.get(booking.merchantid).name}</td>
-            <td>$${allCategories.get(allStalls.get(booking.stallnumber).categoryid).price}</td>
+        	<td>${merchants.get(booking.value.merchantid).name}</td>
+            <td>$${booking.value.price}</td>
         </tr>
 	#{/list}
+	#{else}
+    	<tr>
+        	<td colspan="2">There are no stalls booked for the current week.</td>
+        </tr>
+	#{/else}
     </tbody>
+	<tfoot>
+		<tr>
+			<td>Total (For Week)</td>
+			<td>$${bookingTotal}</td>
+		</tr>
+	</tfoot>
 </table>

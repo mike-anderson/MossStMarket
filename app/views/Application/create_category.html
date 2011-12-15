@@ -1,0 +1,47 @@
+#{extends 'main.html' /}
+#{set title:'Overview' /}
+#{set overhidden:true /}
+<h2>Create New Category</h2>
+#{ifErrors}
+	<div id="immediate" class="popup">
+		<h2>Error</h2>
+		<p>You haven't filled in the form correctly. Please try again.</p>
+		<ul>
+		#{ifError 'category_name'}
+		  <li>
+			<em>Category Name: </em>#{error 'category_name' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'category_colour'}
+		  <li>
+			<em>Colour: </em>#{error 'category_colour' /}
+		  </li>
+		#{/ifError}
+		#{ifError 'category_price'}
+		  <li>
+			<em>Price: </em>#{error 'category_price' /}
+		  </li>
+		#{/ifError}
+		</ul>
+	</div>
+#{/ifErrors}
+
+#{form @Application.add_category(category_name, category_colour, category_price)}
+	<table>
+    <tr>
+        <td><label for="category_name">New Category: </label></td>
+        <td><input type="text" name="category_name" /> </td>
+    </tr>
+	<tr>
+        <td><label for="category_colour">Colour: </label></td>
+        <td><input type="text" class="color" name="category_colour" /></td>
+    </tr>
+	<tr>
+        <td><label for="category_price">Price: </label></td>
+        <td><input type="text" name="category_price" /></td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Submit" /></td>
+    </tr>
+</table>
+#{/form}

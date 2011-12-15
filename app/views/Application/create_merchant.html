@@ -1,8 +1,21 @@
 #{extends 'main.html' /}
+<<<<<<< HEAD
 #{set title:'Create a New merchant' /}
 #{set overhidden:true /}
 <h2>Create a New Merchant</h2>
 #{form @Application.add_merchant(merchant_name, merchant_category, merchant_addr1, merchant_addr2, merchant_city, merchant_province, merchant_postal, merchant_email, merchant_telephone)}
+=======
+#{set title:'Merchants' /}
+#{set overhidden:true /}
+<h2>Create a New Merchant</h2>
+#{form @Application.add_merchant(merchant_name, merchant_category, merchant_addr1, merchant_addr2, merchant_city, merchant_province, merchant_postal, merchant_email, merchant_telephone)}
+    #{ifErrors}		
+		<div id="immediate" class="popup">
+			<h2>Ruh roh!</h2>
+			<p>You are missing a required field. Please double check your form entry.</p>
+		</div>
+    #{/ifErrors}
+>>>>>>> master
 <table>
     <tr>
         <td><label for="mname">New Merchant Name: </label></td>
@@ -32,7 +45,26 @@
     </tr>
     <tr>
         <td><label for="prov">Province: </label></td>
+<<<<<<< HEAD
         <td><input type="text" name="merchant_province" id="prov" /></td>
+=======
+        <td>
+		<select name="merchant_province" id="prov">
+			<option value="AB">AB</option>
+			<option value="BC">BC</option>
+			<option value="MB">MB</option>
+			<option value="NB">NB</option>
+			<option value="NL">NL</option>
+			<option value="NS">NS</option>
+			<option value="NT">NT</option>
+			<option value="NU">NU</option>
+			<option value="ON">ON</option>
+			<option value="PE">PE</option>
+			<option value="QC">QC</option>
+			<option value="SK">SK</option>
+			<option value="YT">YT</option>
+	    </select></td>
+>>>>>>> master
     </tr>
     <tr>
         <td><label for="pCode">Postal Code: </label></td>

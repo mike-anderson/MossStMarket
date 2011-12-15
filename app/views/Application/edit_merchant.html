@@ -1,0 +1,48 @@
+#{extends 'main.html' /}
+#{set title:'Merchants' /}
+#{set overhidden:true /}
+<h2>Edit a Merchant</h2>
+#{form @Application.save_edited_merchant(merchant_name, merchant_category, merchant_addr, merchant_email, merchant_telephone)}
+    #{ifErrors}		
+		<div id="immediate" class="popup">
+			<h2>Ruh roh!</h2>
+			<p>You are missing a required field. Please double check your form entry.</p>
+		</div>
+    #{/ifErrors}
+<table>
+    <tr>
+        <td><label for="mname">Merchant Name: </label></td>
+        <td><input type="text" name="merchant_name" id="mname" value="${currentMerchant.name}" /> </td>
+    </tr>
+    <tr>
+        <td><label for="cGory">Category: </label></td>
+        <td>
+	    <select name="merchant_category" id="cGory">
+	    #{list items:allCategories, as: 'category'}
+		#{if category.value.id == currentMerchant.categoryid}
+		<option value="${category.value.id}" selected="selected"> ${category.value.name}</option>
+		#{/if}
+		#{else}
+		<option value="${category.value.id}"> ${category.value.name}</option>			
+		#{/else}
+	    #{/list}
+	    </select>
+	</td>
+    </tr>
+    <tr>
+        <td><label for="aLine1">Address Line 1: </label></td>
+        <td><textarea type="text" name="merchant_addr1">${currentMerchant.address}</textarea></td>
+    </tr>
+    <tr>
+        <td><label for="eml">E-mail: </label></td>
+        <td><input type="text" name="merchant_email" id="eml" value="${currentMerchant.email}" /></td>
+    </tr>
+    <tr>
+        <td><label for="tele">Telephone: </label></td>
+        <td><input type="text" name="merchant_telephone" id="tele" value="${currentMerchant.phonenumber}" /></td>
+    </tr>
+    <tr>
+        <td><input type="submit" class="button" value="Submit" /></td>
+    </tr>
+</table>
+#{/form}

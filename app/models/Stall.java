@@ -19,5 +19,10 @@ public class Stall extends Model {
         this.lastmaintenancedate = _lastMaintenanceDate;
         this.nextmaintenancedate = _nextMaintenanceDate;
      }
+	public Stall updateMaintenance(Date newDate) {
+		this.nextmaintenancedate = newDate;
+		this.merge();
+		this.save();
+		return this;
+	}
 }
-

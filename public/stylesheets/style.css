@@ -76,7 +76,7 @@ body {
 table
 {
 	background: #fff;
-	width: 70%;
+	width: 80%;
 	border-collapse: collapse;
 	text-align: left;
 }
@@ -94,6 +94,12 @@ tbody td
 table tbody tr:hover td
 {
 	color: #aab25d;
+}
+table tfoot td
+{
+	color: #1E1E1E;
+	padding: 10px 8px;
+	border-top: 2px solid #8c8f69;
 }
 .thin {
 	width: 30%;
@@ -140,12 +146,19 @@ hr {
 header {
 	position: relative;
 	background: url('/public/images/logo.png') no-repeat left top;
-	padding-left: 135px;
 	min-height: 80px;
 }
 header h1 {
 	position: absolute;
 	bottom: 4px;
+}
+header h1 a {
+	padding-left: 135px;
+	border: 0;
+	color: rgb(30,30,30);
+}
+header h1 a:hover {
+	color: rgb(30,30,30);
 }
 a, #overview td span.tooltip a {
 	display: inline;
@@ -213,7 +226,8 @@ nav li a:hover {
 	padding: 10px;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
-	border-radius: 15px;	
+	border-radius: 15px;
+	white-space: nowrap;
 }
 .topright {
 	position: absolute;
@@ -279,6 +293,9 @@ footer a {
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 }
+.popup ul {
+	margin: 0 0 0 20px;
+}
 img.btn_close {
 	float: right;
 	margin: -10px -10px 0 0;
@@ -333,6 +350,9 @@ PAGE SPECIFIC STUFF
 	float: left;
 	width: 614px;
 }
+.merchant table {
+	width: 90%;
+}
 .overhidden {
 	overflow: hidden;
 }
@@ -375,7 +395,7 @@ PAGE SPECIFIC STUFF
 }
 #overview td.maintenance {
 	border-style: solid;
-	border-color: #fff;
+	border-color: #fff !important;
 	background: #fcbe2f url('/public/images/maintenance.png') center center no-repeat;
 	color: #fff;
 }
@@ -385,6 +405,9 @@ PAGE SPECIFIC STUFF
 	position: relative;
 	top: -5px;
 	left: 0px;
+}
+#overview td.maintenance span.number {
+	color: #fff !important;
 }
 #overview td.active span.number {
 	color: #fff !important;
@@ -602,7 +625,10 @@ px      68    160    252    344    436    528    620    712    */
 		position: static;
 		display: block;
 		text-align: center;		
-	}	
+	}
+	header h1 a {
+		padding-left: 0;
+	}
 	nav {
 		right: auto;
 		width: 100%;
